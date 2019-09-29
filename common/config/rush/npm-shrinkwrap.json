@@ -200,11 +200,12 @@
     },
     "@rush-temp/core": {
       "version": "file:projects/core.tgz",
-      "integrity": "sha512-3gK6SJGl0TLvaAkrojQ7zFwrh43ybNKRUzWHsJBLm0z7dkVMXXNkuCYefSR6CFHLMmmJiKmEYKVxXhWo03aWog==",
+      "integrity": "sha512-HVoAJ3yVFlRXc8U1Rj60WbjCNVFV/ZeD0QVXDS2DwDEx8o+NSqC+uqL4p8SwTYDBFAdGRQd4zEy49c1V+1kXFw==",
       "requires": {
         "@hayspec/cli": "0.9.0",
         "@hayspec/spec": "0.9.0",
         "@rawmodel/core": "3.2.1",
+        "@types/node": "12.7.8",
         "nyc": "14.1.1",
         "ts-node": "8.3.0",
         "tslint": "5.18.0",
@@ -213,10 +214,11 @@
     },
     "@rush-temp/typewriters": {
       "version": "file:projects/typewriters.tgz",
-      "integrity": "sha512-ZLp2mkxqkzteFp0PzycT42HGSnucbMzyFyCh3YQnsGMIJEEaioXfkNj3oyfVnDaDJjyebc5uSPnGDaURyFGiDQ==",
+      "integrity": "sha512-IFq50fizPG1UNg8gqzRDOqWUTMt82NQw3ei9LR8b3Kkh/n0GsJv3IPn53/DTvd2jGWYkvqxXKSz+qLSD9TUquw==",
       "requires": {
         "@hayspec/cli": "0.9.0",
         "@hayspec/spec": "0.9.0",
+        "@types/node": "12.7.8",
         "@types/table": "4.0.7",
         "nyc": "14.1.1",
         "table": "5.4.6",
@@ -224,6 +226,11 @@
         "tslint": "5.18.0",
         "typescript": "3.5.3"
       }
+    },
+    "@types/node": {
+      "version": "12.7.8",
+      "resolved": "https://registry.npmjs.org/@types/node/-/node-12.7.8.tgz",
+      "integrity": "sha512-FMdVn84tJJdV+xe+53sYiZS4R5yn1mAIxfj+DVoNiQjTYz1+OYmjwEZr1ev9nU0axXwda0QDbYl06QHanRVH3A=="
     },
     "@types/table": {
       "version": "4.0.7",
