@@ -311,7 +311,7 @@ TODO
 | Package | Description | Version
 |-|-|-
 | [@rawcmd/core](https://github.com/rawcmd/framework/tree/master/packages/rawcmd-core) | Core framework logic. | [![NPM Version](https://badge.fury.io/js/@rawcmd%2Fcore.svg)](https://badge.fury.io/js/%40rawcmd%2Fcore)
-| [@rawcmd/typewriters](https://github.com/rawcmd/framework/tree/master/packages/rawcmd-validators) | Collection of typewriters. | [![NPM Version](https://badge.fury.io/js/@rawcmd%2Fvalidators.svg)](https://badge.fury.io/js/%40rawcmd%2Fvalidators)
+| [@rawcmd/typewriters](https://github.com/rawcmd/framework/tree/master/packages/rawcmd-typewriters) | Collection of typewriters. | [![NPM Version](https://badge.fury.io/js/@rawcmd%2Ftypewriters.svg)](https://badge.fury.io/js/%40rawcmd%2Ftypewriters)
 
 ## Contributing
 
