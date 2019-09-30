@@ -207,7 +207,7 @@ async function resolveCommand(command: Command, args: string[]) {
     return sanitizeOptions(command, data);
   });
 
-  return command.resolver.call(this, { options, tail });
+  return command.resolver.call(command, { options, tail });
 }
 
 /**

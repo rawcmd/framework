@@ -216,4 +216,16 @@ spec.test('supports option validation', async (ctx) => {
   await ctx.throws(() => command.perform('--foo=100'));
 });
 
+spec.test('resolver shares command content', async (ctx) => {
+  let context = null;
+
+  const command = new Command({
+    name: 'cmd0',
+    resolver() { context = this; },
+  });
+  await command.perform();
+
+  ctx.is(context, command);
+});
+
 export default spec;
