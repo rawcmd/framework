@@ -283,24 +283,6 @@ TODO
 
 | Option | Type | Required | Default | Description
 |--------|------|----------|---------|------------
-| config.reset | Boolean | No | - | Resets previous styles.
-| config.bold | Boolean | No | - | Makes text brighter.
-| config.dim | Boolean | No | - | Makes text darker.
-| config.underline | Boolean | No | - | Makes text underlined.
-| config.inverse | Boolean | No | - | Inverses font and background colors.
-| config.color | String | No | - | Applyes a color to text.
-| config.background | Boolean | No | - | Applyes a color to background.
-| config.align | String | No | - | Align paragraph text.
-| config.width | Integer | No | - | Sets paragraph width.
-| config.truncate | Integer | No | - | Truncate text at position.
-| data | Any[][] | Yes | - | Two dimensional table of arbitrary data. Values are automatically converted to string.
-
-**textTypewriter(config)**: Function(data)
-
-> Converts data to stringified table.
-
-| Option | Type | Required | Default | Description
-|--------|------|----------|---------|------------
 | config.columns.$.index | Integer | Yes | - | Column index.
 | config.columns.$.reset | Boolean | No | - | Resets previous styles.
 | config.columns.$.bold | Boolean | No | - | Makes text brighter.
@@ -313,6 +295,24 @@ TODO
 | config.columns.$.width | Integer | No | - | Sets paragraph width.
 | config.columns.$.truncate | Integer | No | - | Truncate text at position.
 | config.separator | String | No | - | Custom string between columns.
+| data | Any[][] | Yes | - | Two dimensional table of arbitrary data. Values are automatically converted to string.
+
+**textTypewriter(config)**: Function(data)
+
+> Converts data to stringified table.
+
+| Option | Type | Required | Default | Description
+|--------|------|----------|---------|------------
+| config.reset | Boolean | No | - | Resets previous styles.
+| config.bold | Boolean | No | - | Makes text brighter.
+| config.dim | Boolean | No | - | Makes text darker.
+| config.underline | Boolean | No | - | Makes text underlined.
+| config.inverse | Boolean | No | - | Inverses font and background colors.
+| config.color | String | No | - | Applyes a color to text.
+| config.background | Boolean | No | - | Applyes a color to background.
+| config.align | String | No | - | Align paragraph text.
+| config.width | Integer | No | - | Sets paragraph width.
+| config.truncate | Integer | No | - | Truncate text at position.
 | data | String | Yes | - | Arbitrary string.
 
 ## Packages
