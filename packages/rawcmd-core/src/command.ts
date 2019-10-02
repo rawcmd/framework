@@ -20,6 +20,11 @@ export interface CommandRecipe<Message, Context> {
   description?: string;
 
   /**
+   * Command summary.
+   */
+  summary?: string;
+
+  /**
    * List of command options.
    */
   options?: CommandOption[];
@@ -61,27 +66,32 @@ export class Command<Message = any, Context = any> {
   /**
    * Command name.
    */
-  public name: string;
+  public readonly name: string;
 
   /**
    * Command description.
    */
-  public description: string;
+  public readonly description: string;
+
+  /**
+   * Command summary.
+   */
+  public readonly summary: string;
 
   /**
    * List of command options.
    */
-  public options: CommandOption[];
+  public readonly options: CommandOption[];
 
   /**
    * List of sub commands.
    */
-  public commands: Command<Message, Context>[];
+  public readonly commands: Command<Message, Context>[];
 
   /**
    * Command resolver.
    */
-  public resolver: CommandResolver;
+  public readonly resolver: CommandResolver;
 
   /**
    * Typewriter class instance.
@@ -103,6 +113,7 @@ export class Command<Message = any, Context = any> {
     config = { ...config };
     this.name = recipe.name || null;
     this.description = recipe.description || null;
+    this.summary = recipe.summary || null;
     this.options = [...recipe.options || []];
     this.commands = [...recipe.commands || []];
     this.resolver = recipe.resolver || function() {};
