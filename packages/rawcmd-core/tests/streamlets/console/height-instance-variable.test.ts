@@ -9,9 +9,9 @@ spec.beforeEach((ctx) => {
   ctx.set('streamlet', new ConsoleStreamlet());
 });
 
-spec.test('returns screen width', async (ctx) => {
+spec.test('returns screen height', async (ctx) => {
   const streamlet = ctx.get('streamlet');
-  ctx.is(streamlet.columns, process.stdout.columns);
+  ctx.is(streamlet.height, process.stdout.rows);
 });
 
 export default spec;

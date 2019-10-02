@@ -11,7 +11,7 @@ spec.beforeEach((ctx) => {
 
 spec.test('returns screen height', async (ctx) => {
   const streamlet = ctx.get('streamlet');
-  ctx.is(streamlet.rows, 200);
+  ctx.is(streamlet.height, 200);
 });
 
 export default spec;

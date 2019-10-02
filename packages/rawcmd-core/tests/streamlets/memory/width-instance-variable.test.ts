@@ -11,7 +11,7 @@ spec.beforeEach((ctx) => {
 
 spec.test('returns screen width', async (ctx) => {
   const streamlet = ctx.get('streamlet');
-  ctx.is(streamlet.columns, 100);
+  ctx.is(streamlet.width, 100);
 });
 
 export default spec;
