@@ -268,6 +268,15 @@ TODO
 
 ### @rawcmd/typewriters
 
+**batchTypewriter(config)**: Function(data)
+
+> Applyes styles to the provided string.
+
+| Option | Type | Required | Default | Description
+|--------|------|----------|---------|------------
+| config.separator | String | No | - | Data separator (defaults to new line character).
+| data | Any[] | Yes | - | Arbitrary list of values. Values are automatically converted to string.
+
 **tableTypewriter(config)**: Function(data)
 
 > Applyes styles to the provided string.
@@ -284,7 +293,7 @@ TODO
 | config.align | String | No | - | Align paragraph text.
 | config.width | Integer | No | - | Sets paragraph width.
 | config.truncate | Integer | No | - | Truncate text at position.
-| data | String | No | - | Arbitrary text.
+| data | Any[][] | Yes | - | Two dimensional table of arbitrary data. Values are automatically converted to string.
 
 **textTypewriter(config)**: Function(data)
 
@@ -304,7 +313,7 @@ TODO
 | config.columns.$.width | Integer | No | - | Sets paragraph width.
 | config.columns.$.truncate | Integer | No | - | Truncate text at position.
 | config.separator | String | No | - | Custom string between columns.
-| data | String[][] | No | - | Two-dimensional array of table data.
+| data | String | Yes | - | Arbitrary string.
 
 ## Packages
 

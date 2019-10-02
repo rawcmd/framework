@@ -4,6 +4,8 @@ import * as exp from '../src';
 const spec = new Spec();
 
 spec.test('exposed content', (ctx) => {
+  ctx.true(!!exp.EOL);
+  ctx.true(!!exp.batchTypewriter);
   ctx.true(!!exp.TextAlign);
   ctx.true(!!exp.TextColor);
   ctx.true(!!exp.textTypewriter);
