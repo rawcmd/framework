@@ -226,6 +226,10 @@ TODO
 
 > Returns custom context defined at initialization time.
 
+**Command.prototype.getParent()**: Command
+
+> Returns parent command instance.
+
 **Command.prototype.getTypewriter()**: Typewriter
 
 > Returns typewriter class instance.

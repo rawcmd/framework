@@ -44,12 +44,17 @@ export interface CommandRecipe<Message, Context> {
 /**
  * Command class configuration options interface.
  */
-export interface CommandConfig<Context> {
+export interface CommandConfig<Message, Context> {
 
   /**
    * Arbitrary context data.
    */
   context?: Context;
+
+  /**
+   * Parent command instance.
+   */
+  parent?: Command<Message, Context>;
 
   /**
    * Custom printer instance.
@@ -104,11 +109,16 @@ export class Command<Message = any, Context = any> {
   protected _context: Context;
 
   /**
+   * Parent command instance.
+   */
+  protected _parent: Command;
+
+  /**
    * Class constructor.
    * @param recipe Command class recipe interface.
    * @param config Command class configuration options.
    */
-  public constructor(recipe: CommandRecipe<Message, Context>, config?: CommandConfig<Context>) {
+  public constructor(recipe: CommandRecipe<Message, Context>, config?: CommandConfig<Message, Context>) {
     recipe = { ...recipe };
     config = { ...config };
     this.name = recipe.name || null;
@@ -119,6 +129,7 @@ export class Command<Message = any, Context = any> {
     this.resolver = recipe.resolver || function() {};
     this._typewriter = config.typewriter || new Typewriter();
     this._context = typeof config.context !== 'undefined' ? config.context : null;
+    this._parent = typeof config.parent !== 'undefined' ? config.parent : null;
   }
 
   /**
@@ -133,6 +144,20 @@ export class Command<Message = any, Context = any> {
    */
   public getTypewriter(): Typewriter<Message> {
     return this._typewriter;
+  }
+
+  /**
+   * Returns parent command instance.
+   */
+  public getParent(): Command<Message, Context> {
+    return this._parent;
+  }
+
+  /**
+   * Sets parent command instance.
+   */
+  public setParent(command: Command<Message, Context>): void {
+    this._parent = command;
   }
 
   /**
