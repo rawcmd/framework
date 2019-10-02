@@ -35,26 +35,19 @@ export interface CommandRecipe<Message, Context> {
   commands?: Command<Message, Context>[];
 
   /**
+   * Parent command instance.
+   */
+  parent?: Command<Message, Context>;
+
+  /**
    * Command resolver.
    */
   resolver?: CommandResolver;
-
-}
-
-/**
- * Command class configuration options interface.
- */
-export interface CommandConfig<Message, Context> {
 
   /**
    * Arbitrary context data.
    */
   context?: Context;
-
-  /**
-   * Parent command instance.
-   */
-  parent?: Command<Message, Context>;
 
   /**
    * Custom printer instance.
@@ -69,95 +62,107 @@ export interface CommandConfig<Message, Context> {
 export class Command<Message = any, Context = any> {
 
   /**
-   * Command name.
+   * Command class configuration.
    */
-  public readonly name: string;
-
-  /**
-   * Command description.
-   */
-  public readonly description: string;
-
-  /**
-   * Command summary.
-   */
-  public readonly summary: string;
-
-  /**
-   * List of command options.
-   */
-  public readonly options: CommandOption[];
-
-  /**
-   * List of sub commands.
-   */
-  public readonly commands: Command<Message, Context>[];
-
-  /**
-   * Command resolver.
-   */
-  public readonly resolver: CommandResolver;
-
-  /**
-   * Typewriter class instance.
-   */
-  protected _typewriter: Typewriter<Message>;
-
-  /**
-   * Arbitrary context data.
-   */
-  protected _context: Context;
-
-  /**
-   * Parent command instance.
-   */
-  protected _parent: Command;
+  protected _config: CommandRecipe<Message, Context>;
 
   /**
    * Class constructor.
    * @param recipe Command class recipe interface.
    * @param config Command class configuration options.
    */
-  public constructor(recipe: CommandRecipe<Message, Context>, config?: CommandConfig<Message, Context>) {
-    recipe = { ...recipe };
-    config = { ...config };
-    this.name = recipe.name || null;
-    this.description = recipe.description || null;
-    this.summary = recipe.summary || null;
-    this.options = [...recipe.options || []];
-    this.commands = [...recipe.commands || []];
-    this.resolver = recipe.resolver || function() {};
-    this._typewriter = config.typewriter || new Typewriter();
-    this._context = typeof config.context !== 'undefined' ? config.context : null;
-    this._parent = typeof config.parent !== 'undefined' ? config.parent : null;
+  public constructor(config: CommandRecipe<Message, Context>) {
+    this._config = {
+      options: [],
+      commands: [],
+      resolver() {},
+      typewriter: new Typewriter(),
+      ...config,
+    };
+    this._config.options = [...(this._config.options || [])];
+    this._config.commands = [...(this._config.commands || [])];
   }
 
   /**
-   * Returns command arbitrary context data.
+   * Returns command name.
    */
-  public getContext(): Context {
-    return this._context;
+  public getName(): string {
+    return this._config.name || null;
   }
 
   /**
-   * Returns command typewriter instance.
+   * Returns Command description.
    */
-  public getTypewriter(): Typewriter<Message> {
-    return this._typewriter;
+  public getDescription(): string {
+    return this._config.description || null;
+  }
+
+  /**
+   * Returns command summary.
+   */
+  public getSummary(): string {
+    return this._config.summary || null;
+  }
+
+  /**
+   * Returns list of command options.
+   */
+  public getOptions(): CommandOption[] {
+    return this._config.options;
+  }
+
+  /**
+   * Returns list of sub commands.
+   */
+  public getCommands(): Command<Message, Context>[] {
+    return this._config.commands;
   }
 
   /**
    * Returns parent command instance.
    */
   public getParent(): Command<Message, Context> {
-    return this._parent;
+    return this._config.parent || null;
   }
 
   /**
-   * Sets parent command instance.
+   * Returns root command instance.
    */
-  public setParent(command: Command<Message, Context>): void {
-    this._parent = command;
+  public getAncestors(): Command<Message, Context>[] {
+    const tree = [];
+
+    let parent = this as any;
+    while (true) {
+      parent = parent.getParent();
+      if (parent) {
+        tree.unshift(parent);
+      } else {
+        break;
+      }
+    }
+
+    return tree;
+  }
+
+  /**
+   * Returns command resolver.
+   */
+  public getResolver(): CommandResolver {
+    return this._config.resolver || null;
+  }
+
+  /**
+   * Returns command arbitrary context data.
+   */
+  public getContext(): Context {
+    return this._config.context || null;
+  }
+
+  /**
+   * Returns command typewriter instance.
+   */
+  public getTypewriter(): Typewriter<Message> {
+    return this._config.typewriter || null;
   }
 
   /**
@@ -176,7 +181,7 @@ export class Command<Message = any, Context = any> {
    */
   public write(...messages: (Message | any)[]): this {
     messages.forEach((message) => {
-      this._typewriter.write(message);
+      this.getTypewriter().write(message);
     });
     return this;
   }
@@ -194,7 +199,7 @@ export class Command<Message = any, Context = any> {
    * Performs Typewriter's `break` operation.
    */
   public break() {
-    this._typewriter.break();
+    this.getTypewriter().break();
     return this;
   }
 
@@ -204,7 +209,7 @@ export class Command<Message = any, Context = any> {
    * @param message Arbitrary spinner label.
    */
   public spin(message: Message | any) {
-    this._typewriter.spin(message);
+    this.getTypewriter().spin(message);
     return this;
   }
 
@@ -223,7 +228,7 @@ async function performCommand(command: Command, args: string[]) {
     return resolveCommand(command, args);
   } else {
     return performCommand(
-      command.commands.find((c) => c.name === args[0]),
+      command.getCommands().find((c) => c.getName() === args[0]),
       args.slice(1),
     );
   }
@@ -243,7 +248,7 @@ async function resolveCommand(command: Command, args: string[]) {
     return sanitizeOptions(command, data);
   });
 
-  return command.resolver.call(command, { options, tail });
+  return command.getResolver().call(command, { options, tail });
 }
 
 /**
@@ -257,7 +262,7 @@ function readOptions(command: Command, args: string[]): {[key: string]: any} {
 
   args = args.indexOf('--') >= 0 ? args.slice(0, args.indexOf('--')) : args; // remove tail
 
-  command.options.forEach(({ name, alias }) => {
+  command.getOptions().forEach(({ name, alias }) => {
     let value = readOptionValueByName(name, args);
     if (typeof value === 'undefined') {
       value = readOptionValueByAlias(alias, args);
@@ -277,7 +282,7 @@ function readOptions(command: Command, args: string[]): {[key: string]: any} {
  * @param data Options data object.
  */
 async function sanitizeOptions(command: Command, data: {[key: string]: any}): Promise<{[key: string]: any}> {
-  const Model = createModelClass(command.options);
+  const Model = createModelClass(command.getOptions());
   const model = new Model(data);
   try {
     await model.validate();

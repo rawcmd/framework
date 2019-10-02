@@ -13,7 +13,7 @@ spec.beforeEach((ctx) => {
   ctx.set('typewriter', new Typewriter({
     streamlet: ctx.get('streamlet'),
   }));
-  ctx.set('command', new Command({}, {
+  ctx.set('command', new Command({
     typewriter: ctx.get('typewriter'),
   }));
 });

@@ -13,7 +13,7 @@ spec.beforeEach((ctx) => {
   ctx.set('typewriter', new Typewriter({
     streamlet: ctx.get('streamlet'),
   }));
-  ctx.set('command', new Command({}, {
+  ctx.set('command', new Command({
     typewriter: ctx.get('typewriter'),
   }));
 });
@@ -35,7 +35,7 @@ spec.test('converts EOLs to valid EOL', async (ctx) => {
 spec.test('supports custom message format', async (ctx) => {
   interface Message { code: number; message: string; }
   const streamlet = ctx.get('streamlet');
-  const command = new Command<Message>(null, {
+  const command = new Command<Message>({
     typewriter: new Typewriter<Message>({
       streamlet,
       resolver: ({ code, message }) => `${code}-${message}`,
