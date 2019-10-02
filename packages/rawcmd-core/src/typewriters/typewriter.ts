@@ -65,6 +65,23 @@ export class Typewriter<Message = any> {
   }
 
   /**
+   * Returns TTY screen size as columns and rows.
+   */
+  public getSize(): [number, number] {
+    return [
+      this._streamlet.width,
+      this._streamlet.height,
+    ];
+  }
+
+  /**
+   * Returns the current streamlet instance.
+   */
+  public getStreamlet(): StreamletBase {
+    return this._streamlet;
+  }
+
+  /**
    * Appends row data with new message. It also stops the animation if spinner
    * is started.
    * @param message Arbitrary message.

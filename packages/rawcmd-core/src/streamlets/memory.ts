@@ -8,14 +8,14 @@ import { StreamletBase } from '../types';
 export class MemoryStreamlet implements StreamletBase {
 
   /**
-   * TTY screen width.
+   * TTY screen width as number of columns.
    */
-  protected _columns: number;
+  protected _width: number;
 
   /**
-   * TTY screen height.
+   * TTY screen height as number of rows.
    */
-  protected _rows: number;
+  protected _height: number;
 
   /**
    * TTY data store.
@@ -24,26 +24,26 @@ export class MemoryStreamlet implements StreamletBase {
 
   /**
    * Class constructor.
-   * @param columns TTY screen width.
-   * @param rows TTY screen height.
+   * @param width TTY screen width as number of columns.
+   * @param height TTY screen height as number of rows.
    */
-  public constructor(columns: number = 0, rows: number = 0) {
-    this._columns = columns;
-    this._rows = rows;
+  public constructor(width: number = 0, height: number = 0) {
+    this._width = width;
+    this._height = height;
   }
 
   /**
-   * Returns TTY screen width.
+   * Returns TTY screen width as number of columns.
    */
-  public get columns(): number {
-    return this._columns;
+  public get width(): number {
+    return this._width;
   }
 
   /**
-   * Returns TTY screen height.
+   * Returns TTY screen height as number of rows.
    */
-  public get rows(): number {
-    return this._rows;
+  public get height(): number {
+    return this._height;
   }
 
   /**

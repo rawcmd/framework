@@ -7,16 +7,16 @@ import { StreamletBase } from '../types';
 export class ConsoleStreamlet implements StreamletBase {
 
   /**
-   * Returns TTY screen width.
+   * Returns TTY screen width as number of columns.
    */
-  public get columns(): number {
+  public get width(): number {
     return process.stdout.columns;
   }
 
   /**
-   * Returns TTY screen height.
+   * Returns TTY screen height as number of rows.
    */
-  public get rows(): number {
+  public get height(): number {
     return process.stdout.rows;
   }
 

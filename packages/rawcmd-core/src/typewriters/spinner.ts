@@ -94,6 +94,16 @@ export class Spinner<Message = any> {
   }
 
   /**
+   * Returns TTY screen size as columns and rows.
+   */
+  public getSize(): [number, number] {
+    return [
+      this._streamlet.width,
+      this._streamlet.height,
+    ];
+  }
+
+  /**
    * Starts the animation.
    */
   public start(): this {

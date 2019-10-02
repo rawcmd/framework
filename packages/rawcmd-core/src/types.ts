@@ -22,8 +22,8 @@ export type TypewriterResolver<Message> = (message: Message) => string;
  * Typewriter stream interface.
  */
 export interface StreamletBase {
-  columns: number;
-  rows: number;
+  width: number;
+  height: number;
   write(str: string): boolean;
   clearLine(): boolean;
 }
