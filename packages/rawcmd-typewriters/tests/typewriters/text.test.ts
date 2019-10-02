@@ -1,6 +1,6 @@
 import { Spec } from '@hayspec/spec';
-import { EOL } from 'os';
-import { textTypewriter, TextColor, TextAlign } from '../../src';
+import chalk from 'chalk';
+import { EOL, textTypewriter, TextColor, TextAlign } from '../../src';
 
 const spec = new Spec();
 
@@ -9,41 +9,42 @@ spec.test('passes through', (ctx) => {
 });
 
 spec.test('supports bold text', (ctx) => {
-  ctx.is(textTypewriter({ bold: true })('XXX'), '\x1b[1mXXX\x1b[0m');
+  ctx.is(textTypewriter({ bold: true })('XXX'), chalk.bold('XXX'));
+  ctx.is(textTypewriter({ bold: true })('.'), chalk.bold('.'));
 });
 
 spec.test('supports text dimming', (ctx) => {
-  ctx.is(textTypewriter({ dim: true })('XXX'), '\x1b[2mXXX\x1b[0m');
+  ctx.is(textTypewriter({ dim: true })('XXX'), chalk.dim('XXX'));
 });
 
 spec.test('supports underlined text', (ctx) => {
-  ctx.is(textTypewriter({ underline: true })('XXX'), '\x1b[4mXXX\x1b[0m');
+  ctx.is(textTypewriter({ underline: true })('XXX'), chalk.underline('XXX'));
 });
 
 spec.test('supports text color inverse', (ctx) => {
-  ctx.is(textTypewriter({ inverse: true })('XXX'), '\x1b[7mXXX\x1b[0m');
+  ctx.is(textTypewriter({ inverse: true })('XXX'), chalk.inverse('XXX'));
 });
 
 spec.test('supports text color', (ctx) => {
-  ctx.is(textTypewriter({ color: TextColor.BLACK })('XXX'), '\x1b[30mXXX\x1b[0m');
-  ctx.is(textTypewriter({ color: TextColor.RED })('XXX'), '\x1b[31mXXX\x1b[0m');
-  ctx.is(textTypewriter({ color: TextColor.GREEN })('XXX'), '\x1b[32mXXX\x1b[0m');
-  ctx.is(textTypewriter({ color: TextColor.YELLOW })('XXX'), '\x1b[33mXXX\x1b[0m');
-  ctx.is(textTypewriter({ color: TextColor.BLUE })('XXX'), '\x1b[34mXXX\x1b[0m');
-  ctx.is(textTypewriter({ color: TextColor.MAGENTA })('XXX'), '\x1b[35mXXX\x1b[0m');
-  ctx.is(textTypewriter({ color: TextColor.CYAN })('XXX'), '\x1b[36mXXX\x1b[0m');
-  ctx.is(textTypewriter({ color: TextColor.WHITE })('XXX'), '\x1b[37mXXX\x1b[0m');
+  ctx.is(textTypewriter({ color: TextColor.BLACK })('XXX'), chalk.black('XXX'));
+  ctx.is(textTypewriter({ color: TextColor.RED })('XXX'), chalk.red('XXX'));
+  ctx.is(textTypewriter({ color: TextColor.GREEN })('XXX'), chalk.green('XXX'));
+  ctx.is(textTypewriter({ color: TextColor.YELLOW })('XXX'), chalk.yellow('XXX'));
+  ctx.is(textTypewriter({ color: TextColor.BLUE })('XXX'), chalk.blue('XXX'));
+  ctx.is(textTypewriter({ color: TextColor.MAGENTA })('XXX'), chalk.magenta('XXX'));
+  ctx.is(textTypewriter({ color: TextColor.CYAN })('XXX'), chalk.cyan('XXX'));
+  ctx.is(textTypewriter({ color: TextColor.WHITE })('XXX'), chalk.white('XXX'));
 });
 
 spec.test('supports text background', (ctx) => {
-  ctx.is(textTypewriter({ background: TextColor.BLACK })('XXX'), '\x1b[40mXXX\x1b[0m');
-  ctx.is(textTypewriter({ background: TextColor.RED })('XXX'), '\x1b[41mXXX\x1b[0m');
-  ctx.is(textTypewriter({ background: TextColor.GREEN })('XXX'), '\x1b[42mXXX\x1b[0m');
-  ctx.is(textTypewriter({ background: TextColor.YELLOW })('XXX'), '\x1b[43mXXX\x1b[0m');
-  ctx.is(textTypewriter({ background: TextColor.BLUE })('XXX'), '\x1b[44mXXX\x1b[0m');
-  ctx.is(textTypewriter({ background: TextColor.MAGENTA })('XXX'), '\x1b[45mXXX\x1b[0m');
-  ctx.is(textTypewriter({ background: TextColor.CYAN })('XXX'), '\x1b[46mXXX\x1b[0m');
-  ctx.is(textTypewriter({ background: TextColor.WHITE })('XXX'), '\x1b[47mXXX\x1b[0m');
+  ctx.is(textTypewriter({ background: TextColor.BLACK })('XXX'), chalk.bgBlack('XXX'));
+  ctx.is(textTypewriter({ background: TextColor.RED })('XXX'), chalk.bgRed('XXX'));
+  ctx.is(textTypewriter({ background: TextColor.GREEN })('XXX'), chalk.bgGreen('XXX'));
+  ctx.is(textTypewriter({ background: TextColor.YELLOW })('XXX'), chalk.bgYellow('XXX'));
+  ctx.is(textTypewriter({ background: TextColor.BLUE })('XXX'), chalk.bgBlue('XXX'));
+  ctx.is(textTypewriter({ background: TextColor.MAGENTA })('XXX'), chalk.bgMagenta('XXX'));
+  ctx.is(textTypewriter({ background: TextColor.CYAN })('XXX'), chalk.bgCyan('XXX'));
+  ctx.is(textTypewriter({ background: TextColor.WHITE })('XXX'), chalk.bgWhite('XXX'));
 });
 
 spec.test('supports paragraph width', (ctx) => {

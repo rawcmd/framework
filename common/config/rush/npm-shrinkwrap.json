@@ -214,12 +214,13 @@
     },
     "@rush-temp/typewriters": {
       "version": "file:projects/typewriters.tgz",
-      "integrity": "sha512-IFq50fizPG1UNg8gqzRDOqWUTMt82NQw3ei9LR8b3Kkh/n0GsJv3IPn53/DTvd2jGWYkvqxXKSz+qLSD9TUquw==",
+      "integrity": "sha512-WHtxy2EKJc8UlL3IqXxwU7e9Y6YenbkVZyaF2CGM+SUySMHoBvFLtEX7S/XiXAwiCliwa3bJKgFkZprMz7yPYw==",
       "requires": {
         "@hayspec/cli": "0.9.0",
         "@hayspec/spec": "0.9.0",
         "@types/node": "12.7.8",
         "@types/table": "4.0.7",
+        "chalk": "2.4.2",
         "nyc": "14.1.1",
         "table": "5.4.6",
         "ts-node": "8.3.0",

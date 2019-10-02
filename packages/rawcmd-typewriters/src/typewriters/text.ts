@@ -1,3 +1,4 @@
+import chalk from 'chalk';
 import { table, getBorderCharacters } from 'table';
 import { EOL } from 'os';
 import { TextAlign, TextColor } from '../types';
@@ -27,8 +28,8 @@ export function textTypewriter(options?: TextTypewriterOptions) {
   return (value?: any): string => {
     try {
       value = value.toString();
-      value = applyForm(value, options);
       value = applyStyle(value, options);
+      value = applyForm(value, options);
       return value;
     } catch (e) {
       return '';
@@ -42,79 +43,79 @@ export function textTypewriter(options?: TextTypewriterOptions) {
  * @param options Typewriter options.
  */
 function applyStyle(value: string, options?: TextTypewriterOptions): string {
-  const styles = [];
+  let styles = chalk;
 
   if (options.reset) {
-    styles.push('\x1b[0m');
+    styles = styles.reset;
   }
   if (options.bold) {
-    styles.push('\x1b[1m');
+    styles = styles.bold;
   }
   if (options.dim) {
-    styles.push('\x1b[2m');
+    styles = styles.dim;
   }
   if (options.underline) {
-    styles.push('\x1b[4m');
+    styles = styles.underline;
   }
   if (options.inverse) {
-    styles.push('\x1b[7m');
+    styles = styles.inverse;
   }
 
   switch (options.color) {
     case TextColor.BLACK:
-      styles.push('\x1b[30m');
+      styles = styles.black;
       break;
     case TextColor.RED:
-      styles.push('\x1b[31m');
+      styles = styles.red;
       break;
     case TextColor.GREEN:
-      styles.push('\x1b[32m');
+      styles = styles.green;
       break;
     case TextColor.YELLOW:
-      styles.push('\x1b[33m');
+      styles = styles.yellow;
       break;
     case TextColor.BLUE:
-      styles.push('\x1b[34m');
+      styles = styles.blue;
       break;
     case TextColor.MAGENTA:
-      styles.push('\x1b[35m');
+      styles = styles.magenta;
       break;
     case TextColor.CYAN:
-      styles.push('\x1b[36m');
+      styles = styles.cyan;
       break;
     case TextColor.WHITE:
-      styles.push('\x1b[37m');
+      styles = styles.white;
       break;
   }
 
   switch (options.background) {
     case TextColor.BLACK:
-      styles.push('\x1b[40m');
+      styles = styles.bgBlack;
       break;
     case TextColor.RED:
-      styles.push('\x1b[41m');
+      styles = styles.bgRed;
       break;
     case TextColor.GREEN:
-      styles.push('\x1b[42m');
+      styles = styles.bgGreen;
       break;
     case TextColor.YELLOW:
-      styles.push('\x1b[43m');
+      styles = styles.bgYellow;
       break;
     case TextColor.BLUE:
-      styles.push('\x1b[44m');
+      styles = styles.bgBlue;
       break;
     case TextColor.MAGENTA:
-      styles.push('\x1b[45m');
+      styles = styles.bgMagenta;
       break;
     case TextColor.CYAN:
-      styles.push('\x1b[46m');
+      styles = styles.bgCyan;
       break;
     case TextColor.WHITE:
-      styles.push('\x1b[47m');
+      styles = styles.bgWhite;
       break;
   }
 
-  return `${styles.join('')}${value}${styles.length ? '\x1b[0m' : ''}`;
+  return styles(value);
 }
 
 /**
@@ -123,12 +124,17 @@ function applyStyle(value: string, options?: TextTypewriterOptions): string {
  * @param options Typewriter options.
  */
 function applyForm(value: string, options?: TextTypewriterOptions): string {
+  if (!options.width) {
+    return value;
+  }
+
   const column = {
     alignment: options.align || TextAlign.LEFT,
     wrapWord: true,
     truncate: options.truncate > 0 ? options.truncate : Infinity, // track issue https://github.com/gajus/table/issues/105
     width: options.width > 0 ? options.width : value.length,
   };
+
   return table([[value]], {
     columns: { 0: column },
     border: getBorderCharacters(`void`),
