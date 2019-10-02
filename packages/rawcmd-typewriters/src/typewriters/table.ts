@@ -7,7 +7,6 @@ import { TextTypewriterOptions } from './text';
  * Typewriter configuration options.
  */
 export interface TableTypewriterOptions {
-  columns?: TableColumnOptions[];
   separator?: string;
 }
 
@@ -22,15 +21,12 @@ export interface TableColumnOptions extends TextTypewriterOptions {
  * Returns a function which renders text (e.g. colorize).
  * @param options Typewriter options.
  */
-export function tableTypewriter(options?: TableTypewriterOptions) {
-  options = {
-    columns: [],
-    separator: '  ',
-    ...options,
-  };
+export function tableTypewriter(columns?: TableColumnOptions[], options?: TableTypewriterOptions) {
+  columns = [...(columns || [])],
+  options = { ...options };
   return (data?: any[][]): string => {
     try {
-      return applyForm([...data], options);
+      return applyForm([...data], columns, options);
     } catch (e) {
       return '';
     }
@@ -42,18 +38,20 @@ export function tableTypewriter(options?: TableTypewriterOptions) {
  * @param data Table data.
  * @param options Typewriter options.
  */
-function applyForm(data: any[][], options?: TableTypewriterOptions) {
-  const columns = {};
-  options.columns.forEach((option) => {
-    columns[option.index] = {
+function applyForm(data: any[][], columns: TableColumnOptions[], options: TableTypewriterOptions) {
+
+  const colcfg = {};
+  columns.forEach((option) => {
+    colcfg[option.index] = {
       alignment: option.align || TextAlign.LEFT, // track issue https://github.com/gajus/table/issues/104
       wrapWord: true,
       truncate: option.truncate > 0 ? option.truncate : Infinity, // track issue https://github.com/gajus/table/issues/105
       width: option.width > 0 ? option.width : Math.max(...data[option.index]),
     };
   });
+
   return table(data, {
-    columns: { ...columns },
+    columns: colcfg,
     border: {
       ...getBorderCharacters(`void`),
       bodyJoin: options.separator || '  ',
@@ -62,6 +60,5 @@ function applyForm(data: any[][], options?: TableTypewriterOptions) {
     columnDefault: { paddingLeft: 0, paddingRight: 0 },
   })
   .split(/\r\n|\n/g) // split into lines
-  .slice(0, -1) // remove last EOL
   .join(EOL);
 }

@@ -1,3 +1,4 @@
+export { EOL } from 'os';
 export * from './types';
 export * from './errors/generic';
 export * from './errors/runtime';

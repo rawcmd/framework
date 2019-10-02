@@ -157,7 +157,7 @@ const command = new Command<Message>({
       resolver({ code, message }) => { // set custom message resolver for  `spin` method
         return `[${this.getChar()}] ${code} ${message}`;
       },
-    }
+    },
   }),
 });
 ```
@@ -266,40 +266,50 @@ TODO
 |--------|------|----------|---------|------------
 | message | Message | Yes | - | Arbirary message.
 
+**EOL**: String
+
+> Holds a new-line character.
+
 ### @rawcmd/typewriters
 
-**batchTypewriter(config)**: Function(data)
+**tableTypewriter(columns, config)**: Function(data)
 
-> Applyes styles to the provided string.
-
-| Option | Type | Required | Default | Description
-|--------|------|----------|---------|------------
-| config.separator | String | No | - | Data separator (defaults to new line character).
-| data | Any[] | Yes | - | Arbitrary list of values. Values are automatically converted to string.
-
-**tableTypewriter(config)**: Function(data)
-
-> Applyes styles to the provided string.
+> Converts data to stringified table.
 
 | Option | Type | Required | Default | Description
 |--------|------|----------|---------|------------
-| config.columns.$.index | Integer | Yes | - | Column index.
-| config.columns.$.reset | Boolean | No | - | Resets previous styles.
-| config.columns.$.bold | Boolean | No | - | Makes text brighter.
-| config.columns.$.dim | Boolean | No | - | Makes text darker.
-| config.columns.$.underline | Boolean | No | - | Makes text underlined.
-| config.columns.$.inverse | Boolean | No | - | Inverses font and background colors.
-| config.columns.$.color | String | No | - | Applyes a color to text.
-| config.columns.$.background | Boolean | No | - | Applyes a color to background.
-| config.columns.$.align | String | No | - | Align paragraph text.
-| config.columns.$.width | Integer | No | - | Sets paragraph width.
-| config.columns.$.truncate | Integer | No | - | Truncate text at position.
+| columns.$.index | Integer | Yes | - | Column index.
+| columns.$.reset | Boolean | No | - | Resets previous styles.
+| columns.$.bold | Boolean | No | - | Makes text brighter.
+| columns.$.dim | Boolean | No | - | Makes text darker.
+| columns.$.underline | Boolean | No | - | Makes text underlined.
+| columns.$.inverse | Boolean | No | - | Inverses font and background colors.
+| columns.$.color | String | No | - | Applyes a color to text.
+| columns.$.background | Boolean | No | - | Applyes a color to background.
+| columns.$.align | String | No | - | Align paragraph text.
+| columns.$.width | Integer | No | - | Sets paragraph width.
+| columns.$.truncate | Integer | No | - | Truncate text at position.
 | config.separator | String | No | - | Custom string between columns.
 | data | Any[][] | Yes | - | Two dimensional table of arbitrary data. Values are automatically converted to string.
 
+```ts
+import { tableTypewriter } from '@rawcmd/typewriters';
+
+const typewriter = tableTypewriter([
+  { index: 0, width: 20 },
+  { index: 1, width: 60 },
+], {
+  separator: '|',
+});
+const text = typewriter([
+  ['John', 'Smith'],
+  ['Clint', 'Eastwood'],
+]);
+```
+
 **textTypewriter(config)**: Function(data)
 
-> Converts data to stringified table.
+> Applyes styles to the provided string.
 
 | Option | Type | Required | Default | Description
 |--------|------|----------|---------|------------
@@ -314,6 +324,18 @@ TODO
 | config.width | Integer | No | - | Sets paragraph width.
 | config.truncate | Integer | No | - | Truncate text at position.
 | data | String | Yes | - | Arbitrary string.
+
+```ts
+import { TextAlign, TextColor, textTypewriter } from '@rawcmd/typewriters';
+
+const typewriter = textTypewriter({
+  align: TextAlign.RIGHT,
+  bold: true,
+  color: TextColor.MAGENTA
+  width: 80,
+});
+const text = typewriter('Hello World!');
+```
 
 ## Packages
 
