@@ -110,6 +110,7 @@ export class Command<Context = any> {
    * @param config Command configuration.
    */
   public constructor(recipe?: CommandRecipe<Context>, config?: CommandConfig<Context>) {
+    recipe = { ...recipe };
 
     Object.defineProperty(this, '__config', {
       value: {

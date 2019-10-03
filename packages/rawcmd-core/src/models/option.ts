@@ -117,6 +117,7 @@ export class Option {
    * @param recipe Command option recipe.
    */
   public constructor(recipe?: OptionRecipe) {
+    recipe = { ...recipe };
     this.name = recipe.name || null;
     this.alias = recipe.alias || null;
     this.description = recipe.description || null;

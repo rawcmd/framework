@@ -131,37 +131,6 @@ const command = new Command({
 });
 ```
 
-We can customize the message format accepted by the print functions.
-
-```ts
-import { Command, Typewriter } from '@rawcmd/typewriters'; 
-
-interface Message { // custom message format
-  code: number;
-  message: string;
-}
-
-const command = new Command<Message>({
-  resolver() {
-    this.print({ // print custom message
-      code: 2000001,
-      message: 'Hello World!',
-    });
-  },
-}, {
-  typewriter: new Typewriter<Message>({ // set custom typewriter
-    resolver({ code, message }) => { // set custom message resolver for  `print` and `write` methods
-      return `[${code}] ${message}`;
-    },
-    spinner: {
-      resolver({ code, message }) => { // set custom message resolver for  `spin` method
-        return `[${this.getChar()}] ${code} ${message}`;
-      },
-    },
-  }),
-});
-```
-
 ### Handling errors
 
 Errors should be triggered directly within `resolver` and handled outside command class.
@@ -169,7 +138,7 @@ Errors should be triggered directly within `resolver` and handled outside comman
 ```ts
 import { RuntimeError } from '@rawcmd/core';
 
-const command = new Command<Message>({
+const command = new Command({
   resolver() {
     throw new RuntimeError(500001);
   },
@@ -192,7 +161,7 @@ TODO
 
 ### @rawcmd/core
 
-**Command<Message, Context>(recipe, config)**
+**Command<Context>(recipe, config)**
 
 > Command class for defining executable command.
 
@@ -203,14 +172,16 @@ TODO
 | recipe.options.$.name | String | Yes | - | Option name.
 | recipe.options.$.alias | String | No | - | Option alias.
 | recipe.options.$.description | String | No | - | Option description.
-| recipe.options.$.set | Function | No | - | Custom option setter. Check [Rawmodel](https://github.com/rawmodel/framework) for details.
-| recipe.options.$.get | Function | No | - | Custom option getter. Check [Rawmodel](https://github.com/rawmodel/framework) for details.
+| recipe.options.$.setter | Function | No | - | Custom option setter. Check [Rawmodel](https://github.com/rawmodel/framework) for details.
+| recipe.options.$.getter | Function | No | - | Custom option getter. Check [Rawmodel](https://github.com/rawmodel/framework) for details.
 | recipe.options.$.parser | Object | No | - | Option parser configuration. Check [Rawmodel](https://github.com/rawmodel/framework) for details.
 | recipe.options.$.defaultValue | String, Function | No | - | Option default value. Check [Rawmodel](https://github.com/rawmodel/framework) for details.
 | recipe.options.$.emptyValue | String, Function | No | - | Option empty value. Check [Rawmodel](https://github.com/rawmodel/framework) for details.
-| recipe.options.$.validate | ValidatorRecipe[] | No | - | List of option validators. Check [Rawmodel](https://github.com/rawmodel/framework) for details.
+| recipe.options.$.validators | ValidatorRecipe[] | No | - | List of option validators. Check [Rawmodel](https://github.com/rawmodel/framework) for details.
+| recipe.options.$.handlers | HandlerRecipe[] | No | - | List of option error handlers. Check [Rawmodel](https://github.com/rawmodel/framework) for details.
 | recipe.commands | Command[] | No | - | List of sub commands.
 | recipe.resolver | Function | No | - | Command resolver.
+| config.parent | Command | No | - | Parent command class instance.
 | config.context | Context | No | - | Arbitrary context data.
 | config.typewriter | Typewriter | No | - | Typewriter class instance.
 
@@ -221,6 +192,10 @@ TODO
 **Command.prototype.description**: String
 
 > Returns command description.
+
+**Command.prototype.getAncestors()**: Command[]
+
+> Returns a list of all parent command instances.
 
 **Command.prototype.getContext()**: Context
 
@@ -248,7 +223,7 @@ TODO
 
 | Option | Type | Required | Default | Description
 |--------|------|----------|---------|------------
-| messages | Message[] | Yes | - | List of arbirary messages.
+| messages | string[] | Yes | - | List of arbirary messages.
 
 **Command.prototype.print(...messages)**: Command
 
@@ -256,7 +231,7 @@ TODO
 
 | Option | Type | Required | Default | Description
 |--------|------|----------|---------|------------
-| messages | Message[] | Yes | - | List of arbirary messages.
+| messages | string[] | Yes | - | List of arbirary messages.
 
 **Command.prototype.break()**: Command
 
@@ -268,7 +243,7 @@ TODO
 
 | Option | Type | Required | Default | Description
 |--------|------|----------|---------|------------
-| message | Message | Yes | - | Arbirary message.
+| message | string | Yes | - | Arbirary message.
 
 **EOL**: String
 
