@@ -2,6 +2,12 @@
   "name": "@rawcmd/core",
   "entries": [
     {
+      "version": "0.2.0",
+      "tag": "@rawcmd/core_v0.2.0",
+      "date": "Thu, 03 Oct 2019 21:36:38 GMT",
+      "comments": {}
+    },
+    {
       "version": "0.1.7",
       "tag": "@rawcmd/core_v0.1.7",
       "date": "Thu, 03 Oct 2019 21:02:50 GMT",
