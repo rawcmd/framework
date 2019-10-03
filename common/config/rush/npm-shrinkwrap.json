@@ -200,7 +200,7 @@
     },
     "@rush-temp/core": {
       "version": "file:projects/core.tgz",
-      "integrity": "sha512-eF6BqGZwfwg2+oUi0bn9Xu2viNZZHkpFt4l6HzNcERpdjoy+1jKlwOamh/dQbMuVvDiUCDBJWjt2Q2RYouZMBA==",
+      "integrity": "sha512-oV/pvnVxeNdUQcOUMIdqIrD+dMRUklI+k/opvAyMJSnASMEneNhHrXhnaVPzQcYSCMeijKcfSBq/8ToUKXbXJg==",
       "requires": {
         "@hayspec/cli": "0.9.0",
         "@hayspec/spec": "0.9.0",
@@ -223,6 +223,18 @@
         "chalk": "2.4.2",
         "nyc": "14.1.1",
         "table": "5.4.6",
+        "ts-node": "8.3.0",
+        "tslint": "5.18.0",
+        "typescript": "3.5.3"
+      }
+    },
+    "@rush-temp/utils": {
+      "version": "file:projects/utils.tgz",
+      "integrity": "sha512-4OX4r3u2vOlNlm0m4/NIo4RJx9dGj5qkzfL4FzSTIbtHmtJcatxU91XIpfTqzBdf+4BG/KgAMbLbiKlqQWB47A==",
+      "requires": {
+        "@hayspec/cli": "0.9.0",
+        "@hayspec/spec": "0.9.0",
+        "nyc": "14.1.1",
         "ts-node": "8.3.0",
         "tslint": "5.18.0",
         "typescript": "3.5.3"
@@ -678,9 +690,9 @@
       "integrity": "sha512-IItsdsea19BoLC7ELy13q1iJFNmd7ofZH5+X/pJr90/nRoPEX0DJo1dHDbgtYWOhJhcCgMDTOw84RZ72q6lB+Q=="
     },
     "handlebars": {
-      "version": "4.4.0",
-      "resolved": "https://registry.npmjs.org/handlebars/-/handlebars-4.4.0.tgz",
-      "integrity": "sha512-xkRtOt3/3DzTKMOt3xahj2M/EqNhY988T+imYSlMgs5fVhLN2fmKVVj0LtEGmb+3UUYV5Qmm1052Mm3dIQxOvw==",
+      "version": "4.4.2",
+      "resolved": "https://registry.npmjs.org/handlebars/-/handlebars-4.4.2.tgz",
+      "integrity": "sha512-cIv17+GhL8pHHnRJzGu2wwcthL5sb8uDKBHvZ2Dtu5s1YNt0ljbzKbamnc+gr69y7bzwQiBdr5+hOpRd5pnOdg==",
       "requires": {
         "neo-async": "^2.6.0",
         "optimist": "^0.6.1",
@@ -766,9 +778,9 @@
       "integrity": "sha1-d8mYQFJ6qOyxqLppe4BkWnqSap0="
     },
     "is-buffer": {
-      "version": "2.0.3",
-      "resolved": "https://registry.npmjs.org/is-buffer/-/is-buffer-2.0.3.tgz",
-      "integrity": "sha512-U15Q7MXTuZlrbymiz95PJpZxu8IlipAp4dtS3wOdgPXx3mqBnslrWU14kxfHB+Py/+2PVKSr37dMAgM2A4uArw=="
+      "version": "2.0.4",
+      "resolved": "https://registry.npmjs.org/is-buffer/-/is-buffer-2.0.4.tgz",
+      "integrity": "sha512-Kq1rokWXOPXWuaMAqZiJW4XxsmD9zGx9q4aePabbn3qCRGedtH7Cm+zV8WETitMfu1wdh+Rvd6w5egwSngUX2A=="
     },
     "is-extglob": {
       "version": "2.1.1",

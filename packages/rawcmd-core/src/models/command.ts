@@ -1,3 +1,4 @@
+import { realize } from '@rawcmd/utils';
 import { Option, OptionRecipe } from './option';
 import { Typewriter } from '../typewriters/typewriter';
 import { createModelClass } from '@rawmodel/core';
@@ -125,9 +126,11 @@ export class Command<Context = any> {
     this.summary = recipe.summary || null;
 
     this.options = (recipe.options || []).map((option) => {
+      option = realize(option, this, [config]);
       return option instanceof Option ? option.clone() : new Option(option);
     });
     this.commands = (recipe.commands || []).map((command) => {
+      command = realize(command, this, [config]);
       return command instanceof Command ? command.clone() : new Command(command, config);
     });
 
