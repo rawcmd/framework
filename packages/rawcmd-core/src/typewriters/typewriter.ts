@@ -31,9 +31,9 @@ export interface TypewriterConfig {
 export class Typewriter<Message = any> {
 
   /**
-   * Message resolver function.
+   * Typewriter configuration.
    */
-  protected _resolver: TypewriterResolver;
+  public readonly __config: TypewriterConfig;
 
   /**
    * Spinner class instance.
@@ -41,26 +41,20 @@ export class Typewriter<Message = any> {
   protected _spinner: Spinner;
 
   /**
-   * Streamlet class instance.
-   */
-  protected _streamlet: StreamletBase;
-
-  /**
    * Class constructor.
    * @param options Printer class options.
    */
   public constructor(config?: TypewriterConfig) {
-    config = { ...config };
-
-    this._streamlet = config.streamlet || new ConsoleStreamlet();
-
-    this._resolver = config.resolver || function(message) {
-      return message.toString();
+    this.__config = {
+      streamlet: new ConsoleStreamlet(),
+      resolver: (message) => message.toString(),
+      spinner: {},
+      ...config,
     };
 
     this._spinner = new Spinner({
-      ...config.spinner,
-      streamlet: this._streamlet,
+      ...this.__config.spinner,
+      streamlet: this.__config.streamlet,
     });
   }
 
@@ -69,8 +63,8 @@ export class Typewriter<Message = any> {
    */
   public getSize(): [number, number] {
     return [
-      this._streamlet.width,
-      this._streamlet.height,
+      this.__config.streamlet.width,
+      this.__config.streamlet.height,
     ];
   }
 
@@ -78,7 +72,7 @@ export class Typewriter<Message = any> {
    * Returns the current streamlet instance.
    */
   public getStreamlet(): StreamletBase {
-    return this._streamlet;
+    return this.__config.streamlet;
   }
 
   /**
@@ -88,8 +82,8 @@ export class Typewriter<Message = any> {
    */
   public write(message: Message): this {
     this._spinner.stop();
-    this._streamlet.write(
-      this._resolver.call(this, message),
+    this.__config.streamlet.write(
+      this.__config.resolver.call(this, message),
     );
     return this;
   }
@@ -99,7 +93,7 @@ export class Typewriter<Message = any> {
    */
   public break(): this {
     this._spinner.stop();
-    this._streamlet.write(EOL);
+    this.__config.streamlet.write(EOL);
     return this;
   }
 
