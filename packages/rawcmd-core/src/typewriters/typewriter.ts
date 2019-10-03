@@ -6,17 +6,17 @@ import { StreamletBase, TypewriterResolver } from '../types';
 /**
  * Printer class options interface.
  */
-export interface TypewriterConfig<Message> {
+export interface TypewriterConfig {
 
   /**
    * Message resolver function.
    */
-  resolver?: TypewriterResolver<Message>;
+  resolver?: TypewriterResolver;
 
   /**
    * Spinner configuration options.
    */
-  spinner?: SpinnerConfig<Message>;
+  spinner?: SpinnerConfig;
 
   /**
    * Streamlet class instance.
@@ -33,12 +33,12 @@ export class Typewriter<Message = any> {
   /**
    * Message resolver function.
    */
-  protected _resolver: TypewriterResolver<Message>;
+  protected _resolver: TypewriterResolver;
 
   /**
    * Spinner class instance.
    */
-  protected _spinner: Spinner<Message>;
+  protected _spinner: Spinner;
 
   /**
    * Streamlet class instance.
@@ -49,7 +49,7 @@ export class Typewriter<Message = any> {
    * Class constructor.
    * @param options Printer class options.
    */
-  public constructor(config?: TypewriterConfig<Message>) {
+  public constructor(config?: TypewriterConfig) {
     config = { ...config };
 
     this._streamlet = config.streamlet || new ConsoleStreamlet();
@@ -58,7 +58,7 @@ export class Typewriter<Message = any> {
       return message.toString();
     };
 
-    this._spinner = new Spinner<Message>({
+    this._spinner = new Spinner({
       ...config.spinner,
       streamlet: this._streamlet,
     });
@@ -108,7 +108,7 @@ export class Typewriter<Message = any> {
    * already started.
    * @param message Arbitrary spinner label.
    */
-  public spin(message: Message): this {
+  public spin(message: string): this {
     this._spinner.start();
     this._spinner.write(message);
     return this;

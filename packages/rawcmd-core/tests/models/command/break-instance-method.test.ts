@@ -1,6 +1,6 @@
 import { Spec } from '@hayspec/spec';
 import { EOL } from 'os';
-import { Command, Typewriter, MemoryStreamlet } from '../../src';
+import { Command, Typewriter, MemoryStreamlet } from '../../../src';
 
 const spec = new Spec<{
   streamlet: MemoryStreamlet;
@@ -13,7 +13,7 @@ spec.beforeEach((ctx) => {
   ctx.set('typewriter', new Typewriter({
     streamlet: ctx.get('streamlet'),
   }));
-  ctx.set('command', new Command({
+  ctx.set('command', new Command({}, {
     typewriter: ctx.get('typewriter'),
   }));
 });

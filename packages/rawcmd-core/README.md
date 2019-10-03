@@ -4,6 +4,52 @@
 
 ## Example
 
+
+
+
+```ts
+new User({
+  firstName: 'John',
+  lastName: 'Smith',
+}, {
+  context,
+});
+
+export function createRootCommand(config) {
+  return new Command({
+    name: '',
+    alias: '',
+    description: '',
+    summary: '',
+    options: [
+      {
+        name,
+        alias,
+        description,
+        parser,
+        validators,
+      },
+    ],
+    commands: [
+      addUserCommand(config),
+      (config) => new Command({}),
+    ],
+    resolver(input) { ... },
+  }, config);
+}
+```
+
+
+
+
+
+
+
+
+
+
+
+
 ```ts
 const command = new Command<Context>({
   name: '',

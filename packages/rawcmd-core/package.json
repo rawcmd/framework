@@ -68,6 +68,6 @@
     "typescript": "3.5.3"
   },
   "dependencies": {
-    "@rawmodel/core": "3.2.1"
+    "@rawmodel/core": "3.3.0"
   }
 }

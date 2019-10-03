@@ -1,5 +1,5 @@
 import { Spec } from '@hayspec/spec';
-import { Command } from '../../src';
+import { Command } from '../../../src';
 
 const spec = new Spec();
 
@@ -112,7 +112,7 @@ spec.test('supports option customer getter', async (ctx) => {
     options: [
       {
         name: 'foo',
-        get() { return 'foo'; },
+        getter() { return 'foo'; },
       }
     ],
     resolver(d) { options = d.options; },
@@ -129,7 +129,7 @@ spec.test('supports option customer setter', async (ctx) => {
     options: [
       {
         name: 'foo',
-        set(v) { return `${v}-foo`; },
+        setter(v) { return `${v}-foo`; },
       }
     ],
     resolver(d) { options = d.options; },
@@ -146,13 +146,13 @@ spec.test('supports option parser', async (ctx) => {
     options: [
       {
         name: 'foo',
-        parse: {
+        parser: {
           resolver(v) { return parseInt(v); },
         },
       },
       {
         name: 'bar',
-        parse: {
+        parser: {
           array: true,
         },
       },
@@ -203,7 +203,7 @@ spec.test('supports option validation', async (ctx) => {
     options: [
       {
         name: 'foo',
-        validate: [
+        validators: [
           {
             code: 100,
             resolver() { return false; },

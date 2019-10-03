@@ -4,7 +4,7 @@ import { StreamletBase, TypewriterResolver } from '../types';
 /**
  * TTY spinner printer options interface.
  */
-export interface SpinnerConfig<Message> {
+export interface SpinnerConfig {
 
   /**
    * Animation character sequence.
@@ -14,7 +14,7 @@ export interface SpinnerConfig<Message> {
   /**
    * Message resolver function.
    */
-  resolver?: TypewriterResolver<Message>;
+  resolver?: TypewriterResolver;
 
   /**
    * Animation speed.
@@ -31,7 +31,7 @@ export interface SpinnerConfig<Message> {
 /**
  * TTY spinner printer for writing spinner animation messages to streamlets.
  */
-export class Spinner<Message = any> {
+export class Spinner {
 
   /**
    * Animation character sequence.
@@ -41,12 +41,12 @@ export class Spinner<Message = any> {
   /**
    * Current animation message.
    */
-  protected _message: Message;
+  protected _message: string;
 
   /**
    * Message resolver function.
    */
-  protected _resolver: TypewriterResolver<Message>;
+  protected _resolver: TypewriterResolver;
 
   /**
    * Animation speed.
@@ -67,7 +67,7 @@ export class Spinner<Message = any> {
    * Class constructor.
    * @param config TTY spinner printer options.
    */
-  public constructor(config?: SpinnerConfig<Message>) {
+  public constructor(config?: SpinnerConfig) {
     config = { ...config };
 
     this._chars = config.chars || ['⠋', '⠙', '⠹', '⠸', '⠼', '⠴', '⠦', '⠧', '⠇', '⠏'];
@@ -129,7 +129,7 @@ export class Spinner<Message = any> {
    * Updates animation label.
    * @param message Arbitrary message.
    */
-  public write(message: Message): boolean {
+  public write(message: string): boolean {
     if (!this.isStarted()) {
       return false;
     }
