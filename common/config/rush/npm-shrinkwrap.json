@@ -193,14 +193,6 @@
         "@rawmodel/utils": "3.3.0"
       }
     },
-    "@rawmodel/parsers": {
-      "version": "3.3.0",
-      "resolved": "https://registry.npmjs.org/@rawmodel/parsers/-/parsers-3.3.0.tgz",
-      "integrity": "sha512-HsabAip9fuS8sL4UKrq5eqnlSdjiQOEJ9wWr7dfiww8CPX/Sjg64JDZro5Ui8QeY+WPVLsvIjG5FOKBQRGoRyg==",
-      "requires": {
-        "@rawmodel/utils": "3.3.0"
-      }
-    },
     "@rawmodel/utils": {
       "version": "3.3.0",
       "resolved": "https://registry.npmjs.org/@rawmodel/utils/-/utils-3.3.0.tgz",
@@ -208,12 +200,11 @@
     },
     "@rush-temp/core": {
       "version": "file:projects/core.tgz",
-      "integrity": "sha512-hF15K6mgQ7OkJjZ8Iw1aAe9Wfb6+bR4unmZap5TRagPgsCEDahV67/rTG1r4tnmFHJM4cdtgtOq414P3kfgt9g==",
+      "integrity": "sha512-eF6BqGZwfwg2+oUi0bn9Xu2viNZZHkpFt4l6HzNcERpdjoy+1jKlwOamh/dQbMuVvDiUCDBJWjt2Q2RYouZMBA==",
       "requires": {
         "@hayspec/cli": "0.9.0",
         "@hayspec/spec": "0.9.0",
         "@rawmodel/core": "3.3.0",
-        "@rawmodel/parsers": "3.3.0",
         "@types/node": "12.7.8",
         "nyc": "14.1.1",
         "ts-node": "8.3.0",
