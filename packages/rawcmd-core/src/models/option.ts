@@ -1,6 +1,15 @@
 import { SimpleResolver, ParserRecipe, ValidatorRecipe, HandlerRecipe } from '@rawmodel/core';
 
 /**
+ * Option data type.
+ */
+export type OptionData = (
+  Option
+  | OptionRecipe
+  | (() => (Option | OptionRecipe))
+);
+
+/**
  * Command option interface.
  */
 export interface OptionRecipe {

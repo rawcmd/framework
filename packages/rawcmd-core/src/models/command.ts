@@ -1,10 +1,19 @@
 import { realize } from '@rawcmd/utils';
-import { Option, OptionRecipe } from './option';
+import { Option, OptionData } from './option';
 import { Typewriter } from '../typewriters/typewriter';
 import { createModelClass } from '@rawmodel/core';
 import { CommandResolver, ErrorCode } from '../types';
 import { ValidationError } from '../errors/validation';
 import { RuntimeError } from '../errors/runtime';
+
+/**
+ * Command data type.
+ */
+export type CommandData<Context> = (
+  Command<Context>
+  | CommandRecipe<Context>
+  | ((config: CommandConfig<Context>) => (Command<Context> | CommandRecipe<Context>))
+);
 
 /**
  * Command recipe interface.
@@ -29,12 +38,12 @@ export interface CommandRecipe<Context> {
   /**
    * List of command options.
    */
-  options?: Option[] | OptionRecipe[];
+  options?: OptionData[];
 
   /**
    * List of sub commands.
    */
-  commands?: Command<Context>[] | CommandRecipe<Context>[];
+  commands?: CommandData<Context>[];
 
   /**
    * Command resolver.
@@ -93,12 +102,12 @@ export class Command<Context = any> {
   /**
    * Command options.
    */
-  public options: Option[];
+  public options: OptionData[];
 
   /**
    * Sub commands.
    */
-  public commands: Command<Context>[];
+  public commands: CommandData<Context>[];
 
   /**
    * Command resolver.
@@ -110,7 +119,7 @@ export class Command<Context = any> {
    * @param recipe Command recipe.
    * @param config Command configuration.
    */
-  public constructor(recipe?: CommandRecipe<Context>, config?: CommandConfig<Context>) {
+  public constructor(recipe?: CommandData<Context>, config?: CommandConfig<Context>) {
     recipe = { ...recipe };
 
     Object.defineProperty(this, '__config', {
@@ -125,6 +134,10 @@ export class Command<Context = any> {
     this.description = recipe.description || null;
     this.summary = recipe.summary || null;
 
+    config = {
+      ...config,
+      parent: this,
+    };
     this.options = (recipe.options || []).map((option) => {
       option = realize(option, this, [config]);
       return option instanceof Option ? option.clone() : new Option(option);
@@ -258,7 +271,7 @@ async function performCommand(command: Command<any>, args: string[]) {
     return resolveCommand(command, args);
   } else {
     return performCommand(
-      command.commands.find((c) => c.name === args[0]),
+      command.commands.map((c) => realize(c)).find((c) => c.name === args[0]),
       args.slice(1),
     );
   }
@@ -278,7 +291,7 @@ async function resolveCommand(command: Command<any>, args: string[]) {
     return sanitizeOptions(command, data);
   });
 
-  return command.resolver.call(command, { options, tail });
+  return command.resolver.call(command, { options, tail }, command);
 }
 
 /**
@@ -292,7 +305,7 @@ function readOptions(command: Command<any>, args: string[]): {[key: string]: any
 
   args = args.indexOf('--') >= 0 ? args.slice(0, args.indexOf('--')) : args; // remove tail
 
-  command.options.forEach(({ name, alias }) => {
+  command.options.map((o) => realize(o)).forEach(({ name, alias }) => {
     let value = readOptionValueByName(name, args);
     if (typeof value === 'undefined') {
       value = readOptionValueByAlias(alias, args);
