@@ -1,5 +1,5 @@
 import { Spec } from '@hayspec/spec';
-import { isNumber } from '../..';
+import { isNumber } from '../../src';
 
 const spec = new Spec();
 

@@ -1,5 +1,5 @@
 import { Spec } from '@hayspec/spec';
-import { isUndefined } from '../..';
+import { isUndefined } from '../../src';
 
 const spec = new Spec();
 

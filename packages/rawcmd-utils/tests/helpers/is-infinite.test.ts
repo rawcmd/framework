@@ -1,5 +1,5 @@
 import { Spec } from '@hayspec/spec';
-import { isInfinite } from '../..';
+import { isInfinite } from '../../src';
 
 const spec = new Spec();
 

@@ -1,5 +1,5 @@
 import { Spec } from '@hayspec/spec';
-import { isNull } from '../..';
+import { isNull } from '../../src';
 
 const spec = new Spec();
 

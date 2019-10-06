@@ -1,5 +1,5 @@
 import { Spec } from '@hayspec/spec';
-import { toString } from '../..';
+import { toString } from '../../src';
 
 const spec = new Spec();
 
