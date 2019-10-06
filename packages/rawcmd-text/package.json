@@ -1,6 +1,6 @@
 {
   "name": "@rawcmd/text",
-  "version": "0.2.2",
+  "version": "0.3.0",
   "description": "Text manipulation functions for Rawcmd.",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -68,6 +68,6 @@
   },
   "dependencies": {
     "@slimio/wcwidth": "1.0.0",
-    "@rawcmd/utils": "0.2.2"
+    "@rawcmd/utils": "0.3.0"
   }
 }

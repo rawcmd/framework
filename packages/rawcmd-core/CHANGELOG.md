@@ -1,6 +1,11 @@
 # Change Log - @rawcmd/core
 
-This log was last generated on Fri, 04 Oct 2019 08:46:21 GMT and should not be manually modified.
+This log was last generated on Sun, 06 Oct 2019 22:32:20 GMT and should not be manually modified.
+
+## 0.3.0
+Sun, 06 Oct 2019 22:32:20 GMT
+
+*Version update only*
 
 ## 0.2.2
 Fri, 04 Oct 2019 08:46:21 GMT
