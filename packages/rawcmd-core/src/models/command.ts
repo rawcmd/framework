@@ -102,12 +102,12 @@ export class Command<Context = any> {
   /**
    * Command options.
    */
-  public options: OptionData[];
+  public options: Option[];
 
   /**
    * Sub commands.
    */
-  public commands: CommandData<Context>[];
+  public commands: Command<Context>[];
 
   /**
    * Command resolver.
