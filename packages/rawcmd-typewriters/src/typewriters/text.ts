@@ -1,7 +1,5 @@
-// import chalk from 'chalk';
-// import { table, getBorderCharacters } from 'table';
-// import { EOL } from 'os';
-import { TextAlign, TextColor } from '../types';
+import { toString } from '@rawcmd/utils';
+import { ANSI_CODES, TextBackground, TextColor, TextStyle, repairAnsi } from '@rawcmd/text';
 
 /**
  * Typewriter configuration options.
@@ -13,10 +11,7 @@ export interface TextTypewriterOptions {
   underline?: boolean;
   inverse?: boolean;
   color?: TextColor;
-  background?: TextColor;
-  align?: TextAlign;
-  width?: number;
-  truncate?: number;
+  background?: TextBackground;
 }
 
 /**
@@ -25,124 +20,46 @@ export interface TextTypewriterOptions {
  */
 export function textTypewriter(options?: TextTypewriterOptions) {
   options = { ...options };
-  // return (value?: any): string => {
-  //   try {
-  //     value = value.toString();
-  //     value = applyStyle(value, options);
-  //     value = applyForm(value, options);
-  //     return value;
-  //   } catch (e) {
-  //     return '';
-  //   }
-  // };
+  return (value?: any): string => {
+    try {
+      value = toString(value) || '';
+      value = applyStyle(value, options);
+      return value;
+    } catch (e) {
+      return '';
+    }
+  };
 }
 
-// /**
-//  * Applies ANSI styles to the provided string.
-//  * @param value String to transform.
-//  * @param options Typewriter options.
-//  */
-// function applyStyle(value: string, options?: TextTypewriterOptions): string {
-//   let styles = chalk;
+/**
+ * Applies ANSI styles to the provided string.
+ * @param value String to transform.
+ * @param options Typewriter options.
+ */
+function applyStyle(value: string, options?: TextTypewriterOptions): string {
+  const styles = [];
 
-//   if (options.reset) {
-//     styles = styles.reset;
-//   }
-//   if (options.bold) {
-//     styles = styles.bold;
-//   }
-//   if (options.dim) {
-//     styles = styles.dim;
-//   }
-//   if (options.underline) {
-//     styles = styles.underline;
-//   }
-//   if (options.inverse) {
-//     styles = styles.inverse;
-//   }
+  if (options.reset) {
+    styles.push(ANSI_CODES[TextStyle.RESET]);
+  }
+  if (options.bold) {
+    styles.push(ANSI_CODES[TextStyle.BOLD]);
+  }
+  if (options.dim) {
+    styles.push(ANSI_CODES[TextStyle.DIM]);
+  }
+  if (options.underline) {
+    styles.push(ANSI_CODES[TextStyle.UNDERLINE]);
+  }
+  if (options.inverse) {
+    styles.push(ANSI_CODES[TextStyle.INVERSE]);
+  }
+  if (options.color) {
+    styles.push(ANSI_CODES[options.color]);
+  }
+  if (options.background) {
+    styles.push(ANSI_CODES[options.background]);
+  }
 
-//   switch (options.color) {
-//     case TextColor.BLACK:
-//       styles = styles.black;
-//       break;
-//     case TextColor.RED:
-//       styles = styles.red;
-//       break;
-//     case TextColor.GREEN:
-//       styles = styles.green;
-//       break;
-//     case TextColor.YELLOW:
-//       styles = styles.yellow;
-//       break;
-//     case TextColor.BLUE:
-//       styles = styles.blue;
-//       break;
-//     case TextColor.MAGENTA:
-//       styles = styles.magenta;
-//       break;
-//     case TextColor.CYAN:
-//       styles = styles.cyan;
-//       break;
-//     case TextColor.WHITE:
-//       styles = styles.white;
-//       break;
-//   }
-
-//   switch (options.background) {
-//     case TextColor.BLACK:
-//       styles = styles.bgBlack;
-//       break;
-//     case TextColor.RED:
-//       styles = styles.bgRed;
-//       break;
-//     case TextColor.GREEN:
-//       styles = styles.bgGreen;
-//       break;
-//     case TextColor.YELLOW:
-//       styles = styles.bgYellow;
-//       break;
-//     case TextColor.BLUE:
-//       styles = styles.bgBlue;
-//       break;
-//     case TextColor.MAGENTA:
-//       styles = styles.bgMagenta;
-//       break;
-//     case TextColor.CYAN:
-//       styles = styles.bgCyan;
-//       break;
-//     case TextColor.WHITE:
-//       styles = styles.bgWhite;
-//       break;
-//   }
-
-//   return styles(value);
-// }
-
-// /**
-//  * Converts the provided string into paragraph.
-//  * @param value String to transform.
-//  * @param options Typewriter options.
-//  */
-// function applyForm(value: string, options?: TextTypewriterOptions): string {
-//   if (!options.width) {
-//     return value;
-//   }
-
-//   const column = {
-//     alignment: options.align || TextAlign.LEFT,
-//     wrapWord: true,
-//     truncate: options.truncate > 0 ? options.truncate : Infinity, // track issue https://github.com/gajus/table/issues/105
-//     width: options.width > 0 ? options.width : value.length,
-//   };
-
-//   return table([[value]], {
-//     columns: { 0: column },
-//     border: getBorderCharacters(`void`),
-//     drawHorizontalLine() { return false; },
-//     columnDefault: { paddingLeft: 0, paddingRight: 0 },
-//   })
-//   .split(/\r\n|\n/g) // split into lines
-//   .slice(0, -1) // remove last EOL
-//   .map((l) => options.width > 0 ? l.substr(0, options.width) : l) // track issue https://github.com/gajus/table/issues/104
-//   .join(EOL);
-// }
+  return repairAnsi(`${styles.filter((s) => !!s).map((s) => s[0]).join('')}${value}`).join('');
+}

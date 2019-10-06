@@ -39,7 +39,7 @@ spec.test('supports column width', (ctx) => {
 
 spec.test('supports text truncation', (ctx) => {
   ctx.is(rowTypewriter([
-    { index: 0, width: 10, textLength: 10, truncateText: false },
+    { index: 0, width: 10, textLength: 10 },
     { index: 1, width: 10, textLength: 20 },
     { index: 2, width: 10, textLength: 14 },
   ])([

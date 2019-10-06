@@ -17,7 +17,6 @@ export interface ColumnRowTypewriterOptions {
   width?: number;
   textLength?: number;
   textWrap?: boolean;
-  truncateText?: boolean;
   textAlign?: TextAlign;
 }
 

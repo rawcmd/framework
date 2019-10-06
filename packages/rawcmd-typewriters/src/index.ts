@@ -1,4 +1,4 @@
 export { EOL } from 'os';
-export * from './types';
+export { TextAlign, TextStyle, TextColor, TextBackground } from '@rawcmd/text';
 export * from './typewriters/text';
 export * from './typewriters/row';

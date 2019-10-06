@@ -5,8 +5,10 @@ const spec = new Spec();
 
 spec.test('exposed content', (ctx) => {
   ctx.true(!!exp.EOL);
+  ctx.true(!!exp.TextStyle);
   ctx.true(!!exp.TextAlign);
   ctx.true(!!exp.TextColor);
+  ctx.true(!!exp.TextBackground);
   ctx.true(!!exp.textTypewriter);
   ctx.true(!!exp.rowTypewriter);
 });

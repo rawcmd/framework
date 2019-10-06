@@ -251,57 +251,50 @@ TODO
 
 ### @rawcmd/typewriters
 
-**tableTypewriter(columns, config)**: Function(data)
+**rowTypewriter(columns, options)**: Function(data)
 
 > Converts data to stringified table.
 
 | Option | Type | Required | Default | Description
 |--------|------|----------|---------|------------
 | columns.$.index | Integer | Yes | - | Column index.
-| columns.$.reset | Boolean | No | - | Resets previous styles.
-| columns.$.bold | Boolean | No | - | Makes text brighter.
-| columns.$.dim | Boolean | No | - | Makes text darker.
-| columns.$.underline | Boolean | No | - | Makes text underlined.
-| columns.$.inverse | Boolean | No | - | Inverses font and background colors.
-| columns.$.color | String | No | - | Applyes a color to text.
-| columns.$.background | Boolean | No | - | Applyes a color to background.
-| columns.$.align | String | No | - | Align paragraph text.
-| columns.$.width | Integer | No | - | Sets paragraph width.
+| columns.$.width | Integer | No | - | Columns width.
+| columns.$.textAlign | String | No | left | Text alignment.
+| columns.$.textLength | Integer | No | - | Text truncation size.
+| columns.$.textWrap | Boolean | No | true | Wrapps long strings into multiple rows.
 | columns.$.truncate | Integer | No | - | Truncate text at position.
-| config.separator | String | No | - | Custom string between columns.
+| options.separatorSymbol | String | No | - | Custom string between columns.
+| options.truncationSymbol | String | No | - | Custom truncation simbol.
 | data | Any[][] | Yes | - | Two dimensional table of arbitrary data. Values are automatically converted to string.
 
 ```ts
-import { tableTypewriter } from '@rawcmd/typewriters';
+import { rowTypewriter } from '@rawcmd/typewriters';
 
-const typewriter = tableTypewriter([
+const typewriter = rowTypewriter([
   { index: 0, width: 20 },
   { index: 1, width: 60 },
 ], {
-  separator: '|',
+  separatorSymbol: ' | ',
 });
 const text = typewriter([
-  ['John', 'Smith'],
-  ['Clint', 'Eastwood'],
+  'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+  'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
 ]);
 ```
 
-**textTypewriter(config)**: Function(data)
+**textTypewriter(options)**: Function(data)
 
 > Applyes styles to the provided string.
 
 | Option | Type | Required | Default | Description
 |--------|------|----------|---------|------------
-| config.reset | Boolean | No | - | Resets previous styles.
-| config.bold | Boolean | No | - | Makes text brighter.
-| config.dim | Boolean | No | - | Makes text darker.
-| config.underline | Boolean | No | - | Makes text underlined.
-| config.inverse | Boolean | No | - | Inverses font and background colors.
-| config.color | String | No | - | Applyes a color to text.
-| config.background | Boolean | No | - | Applyes a color to background.
-| config.align | String | No | - | Align paragraph text.
-| config.width | Integer | No | - | Sets paragraph width.
-| config.truncate | Integer | No | - | Truncate text at position.
+| options.reset | Boolean | No | - | Resets current styles.
+| options.bold | Boolean | No | - | Makes text brighter.
+| options.dim | Boolean | No | - | Makes text darker.
+| options.underline | Boolean | No | - | Makes text underlined.
+| options.inverse | Boolean | No | - | Inverses font and background colors.
+| options.color | String | No | - | Applyes a color to text.
+| options.background | Boolean | No | - | Applyes a color to background.
 | data | String | Yes | - | Arbitrary string.
 
 ```ts
@@ -311,7 +304,6 @@ const typewriter = textTypewriter({
   align: TextAlign.RIGHT,
   bold: true,
   color: TextColor.MAGENTA
-  width: 80,
 });
 const text = typewriter('Hello World!');
 ```
@@ -321,7 +313,9 @@ const text = typewriter('Hello World!');
 | Package | Description | Version
 |-|-|-
 | [@rawcmd/core](https://github.com/rawcmd/framework/tree/master/packages/rawcmd-core) | Core framework logic. | [![NPM Version](https://badge.fury.io/js/@rawcmd%2Fcore.svg)](https://badge.fury.io/js/%40rawcmd%2Fcore)
+| [@rawcmd/text](https://github.com/rawcmd/framework/tree/master/packages/rawcmd-text) | Text manipulation methods. | [![NPM Version](https://badge.fury.io/js/@rawcmd%2Ftext.svg)](https://badge.fury.io/js/%40rawcmd%2Fcore)
 | [@rawcmd/typewriters](https://github.com/rawcmd/framework/tree/master/packages/rawcmd-typewriters) | Collection of typewriters. | [![NPM Version](https://badge.fury.io/js/@rawcmd%2Ftypewriters.svg)](https://badge.fury.io/js/%40rawcmd%2Ftypewriters)
+| [@rawcmd/utils](https://github.com/rawcmd/framework/tree/master/packages/rawcmd-utils) | Helper functions. | [![NPM Version](https://badge.fury.io/js/@rawcmd%2Futils.svg)](https://badge.fury.io/js/%40rawcmd%2Futils)
 
 ## Contributing
 
