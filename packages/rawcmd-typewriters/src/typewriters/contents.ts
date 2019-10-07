@@ -1,6 +1,7 @@
 import { EOL } from '@rawcmd/core';
 import { isArray } from '@rawcmd/utils';
-import { textTypewriter, rowTypewriter } from '../../src';
+import { textTypewriter } from './text';
+import { rowTypewriter } from './row';
 
 /**
  * Table of contents typewriter options interface.

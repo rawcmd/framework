@@ -1,5 +1,5 @@
+import { isString } from '@rawcmd/utils';
 import { ANSI_PATTERN } from '../constants';
-import { isString } from 'util';
 
 /**
  * Splits the `text` into an array of strings and ANSI codes. When the ANSI code
@@ -10,7 +10,7 @@ import { isString } from 'util';
 export function splitAnsi(text: string): string[] {
 
   if (!isString(text)) {
-    return text;
+    return [];
   }
 
   const parts = text.match(new RegExp(ANSI_PATTERN, 'g')) || [];

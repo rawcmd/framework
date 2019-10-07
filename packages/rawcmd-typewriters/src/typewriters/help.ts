@@ -1,6 +1,9 @@
 import { Command, EOL } from '@rawcmd/core';
-import { commandsTypewriter, optionsTypewriter, summaryTypewriter,
-  usageTypewriter, linksTypewriter } from '..';
+import { commandsTypewriter } from './commands';
+import { optionsTypewriter } from './options';
+import { summaryTypewriter } from './summary';
+import { usageTypewriter } from './usage';
+import { linksTypewriter } from './links';
 
 /**
  * Help typewriter options interface.

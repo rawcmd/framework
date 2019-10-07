@@ -1,7 +1,7 @@
+import { isString } from '@rawcmd/utils';
 import { hasAnsi } from './has-ansi';
 import { splitAnsi } from './split-ansi';
 import { findAnsiPairs } from './find-ansi-pairs';
-import { isString } from '@rawcmd/utils';
 
 /**
  * Prepends and appends missing opening and closing ANSI characters.

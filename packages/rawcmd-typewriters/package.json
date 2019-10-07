@@ -1,6 +1,6 @@
 {
   "name": "@rawcmd/typewriters",
-  "version": "0.3.5",
+  "version": "0.3.8",
   "description": "Collection of typewriters for styling command-line messages for Rawcmd.",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -61,16 +61,15 @@
   "devDependencies": {
     "@hayspec/cli": "0.9.0",
     "@hayspec/spec": "0.9.0",
-    "@rawcmd/core": "0.3.5",
+    "@rawcmd/core": "0.3.8",
     "@types/node": "12.7.8",
-    "@types/table": "4.0.7",
     "nyc": "14.1.1",
     "ts-node": "8.3.0",
     "tslint": "5.18.0",
     "typescript": "3.5.3"
   },
   "dependencies": {
-    "@rawcmd/text": "0.3.5",
-    "@rawcmd/utils": "0.3.5"
+    "@rawcmd/text": "0.3.8",
+    "@rawcmd/utils": "0.3.8"
   }
 }
