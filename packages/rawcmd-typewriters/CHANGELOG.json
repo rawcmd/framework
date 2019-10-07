@@ -2,6 +2,12 @@
   "name": "@rawcmd/typewriters",
   "entries": [
     {
+      "version": "0.3.2",
+      "tag": "@rawcmd/typewriters_v0.3.2",
+      "date": "Mon, 07 Oct 2019 14:43:02 GMT",
+      "comments": {}
+    },
+    {
       "version": "0.3.1",
       "tag": "@rawcmd/typewriters_v0.3.1",
       "date": "Mon, 07 Oct 2019 07:00:15 GMT",
