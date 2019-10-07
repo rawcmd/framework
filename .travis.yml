@@ -8,6 +8,7 @@ before_install:
 before_script:
   # install required global npm packages
   - npm install -g codecov
+  - npm install -g os
   - npm install -g @microsoft/rush
 script:
   # build and test
