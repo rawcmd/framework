@@ -1,0 +1,74 @@
+{
+  "name": "@rawcmd/text",
+  "version": "0.3.1",
+  "description": "Text manipulation functions for Rawcmd.",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "clean": "rm -Rf ./dist",
+    "build": "npm run clean; npx tsc",
+    "lint": "npx tslint 'src/**/*.ts?(x)'",
+    "test": "npx nyc npx hayspec test"
+  },
+  "hayspec": {
+    "require": [
+      "ts-node/register"
+    ],
+    "match": [
+      "./tests/**/*.test.ts"
+    ]
+  },
+  "nyc": {
+    "extension": [
+      ".ts"
+    ],
+    "require": [
+      "ts-node/register"
+    ],
+    "exclude": [
+      "tests"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rawcmd/framework.git"
+  },
+  "bugs": {
+    "url": "https://github.com/rawcmd/framework/issues"
+  },
+  "homepage": "https://github.com/rawcmd/framework#readme",
+  "keywords": [
+    "cli",
+    "cmd",
+    "command",
+    "line",
+    "interface",
+    "validate",
+    "validation",
+    "validator",
+    "validating",
+    "type",
+    "cast",
+    "casting",
+    "typewrite",
+    "typewriter",
+    "typewriting",
+    "tty",
+    "ansi"
+  ],
+  "author": "Kristijan Sedlak (Xpepermint)",
+  "license": "MIT",
+  "devDependencies": {
+    "@hayspec/cli": "0.9.0",
+    "@hayspec/spec": "0.9.0",
+    "@types/node": "12.7.8",
+    "nyc": "14.1.1",
+    "ts-node": "8.3.0",
+    "tslint": "5.18.0",
+    "typescript": "3.5.3"
+  },
+  "dependencies": {
+    "@slimio/wcwidth": "1.0.0",
+    "@rawcmd/utils": "0.3.1"
+  }
+}

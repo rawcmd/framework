@@ -38,4 +38,16 @@ spec.test('writes messages in animated row', async (ctx) => {
   ctx.is(streamlet.toString(), `⠹ baz `);
 });
 
+spec.test('supports custom characters', async (ctx) => {
+  const streamlet = ctx.get('streamlet');
+  const spinner = new Spinner({
+    streamlet,
+    chars: ['|', '/', '-', '\\'],
+  });
+  spinner.start();
+  await ctx.sleep(1);
+  ctx.is(streamlet.toString(), '/ ');
+  spinner.stop();
+});
+
 export default spec;

@@ -1,4 +1,5 @@
-import { EOL } from 'os';
+import { EOL } from '@rawcmd/text';
+import { toString } from '@rawcmd/utils';
 import { StreamletBase } from '../types';
 
 /**
@@ -7,16 +8,16 @@ import { StreamletBase } from '../types';
 export class ConsoleStreamlet implements StreamletBase {
 
   /**
-   * Returns TTY screen width.
+   * Returns TTY screen width as number of columns.
    */
-  public get columns(): number {
+  public get width(): number {
     return process.stdout.columns;
   }
 
   /**
-   * Returns TTY screen height.
+   * Returns TTY screen height as number of rows.
    */
-  public get rows(): number {
+  public get height(): number {
     return process.stdout.rows;
   }
 
@@ -26,7 +27,7 @@ export class ConsoleStreamlet implements StreamletBase {
    */
   public write(chunk: string): boolean {
     return process.stdout.write(
-      (chunk || '').toString().replace(/\r\n|\n/g, EOL),
+      (toString(chunk) || '').replace(/\r\n|\n/g, EOL),
     );
   }
 

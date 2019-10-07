@@ -18,8 +18,18 @@
       "versionPolicyName": "patchAll"
     },
     {
+      "packageName": "@rawcmd/text",
+      "projectFolder": "packages/rawcmd-text",
+      "versionPolicyName": "patchAll"
+    },
+    {
       "packageName": "@rawcmd/typewriters",
       "projectFolder": "packages/rawcmd-typewriters",
+      "versionPolicyName": "patchAll"
+    },
+    {
+      "packageName": "@rawcmd/utils",
+      "projectFolder": "packages/rawcmd-utils",
       "versionPolicyName": "patchAll"
     }
   ]

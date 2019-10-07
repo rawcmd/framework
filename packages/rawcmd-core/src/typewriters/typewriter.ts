@@ -1,4 +1,5 @@
-import { EOL } from 'os';
+import { EOL } from '@rawcmd/text';
+import { toString } from '@rawcmd/utils';
 import { Spinner, SpinnerConfig } from './spinner';
 import { ConsoleStreamlet } from '../streamlets/console';
 import { StreamletBase, TypewriterResolver } from '../types';
@@ -6,17 +7,17 @@ import { StreamletBase, TypewriterResolver } from '../types';
 /**
  * Printer class options interface.
  */
-export interface TypewriterConfig<Message> {
+export interface TypewriterConfig {
 
   /**
    * Message resolver function.
    */
-  resolver?: TypewriterResolver<Message>;
+  resolver?: TypewriterResolver;
 
   /**
    * Spinner configuration options.
    */
-  spinner?: SpinnerConfig<Message>;
+  spinner?: SpinnerConfig;
 
   /**
    * Streamlet class instance.
@@ -31,37 +32,48 @@ export interface TypewriterConfig<Message> {
 export class Typewriter<Message = any> {
 
   /**
-   * Message resolver function.
+   * Typewriter configuration.
    */
-  protected _resolver: TypewriterResolver<Message>;
+  public readonly __config: TypewriterConfig;
 
   /**
    * Spinner class instance.
    */
-  protected _spinner: Spinner<Message>;
-
-  /**
-   * Streamlet class instance.
-   */
-  protected _streamlet: StreamletBase;
+  protected _spinner: Spinner;
 
   /**
    * Class constructor.
    * @param options Printer class options.
    */
-  public constructor(config?: TypewriterConfig<Message>) {
-    config = { ...config };
-
-    this._streamlet = config.streamlet || new ConsoleStreamlet();
-
-    this._resolver = config.resolver || function(message) {
-      return message.toString();
+  public constructor(config?: TypewriterConfig) {
+    this.__config = {
+      streamlet: new ConsoleStreamlet(),
+      resolver: (message) => toString(message) || '',
+      spinner: {},
+      ...config,
     };
 
-    this._spinner = new Spinner<Message>({
-      ...config.spinner,
-      streamlet: this._streamlet,
+    this._spinner = new Spinner({
+      ...this.__config.spinner,
+      streamlet: this.__config.streamlet,
     });
+  }
+
+  /**
+   * Returns TTY screen size as columns and rows.
+   */
+  public getSize(): [number, number] {
+    return [
+      this.__config.streamlet.width,
+      this.__config.streamlet.height,
+    ];
+  }
+
+  /**
+   * Returns the current streamlet instance.
+   */
+  public getStreamlet(): StreamletBase {
+    return this.__config.streamlet;
   }
 
   /**
@@ -71,8 +83,8 @@ export class Typewriter<Message = any> {
    */
   public write(message: Message): this {
     this._spinner.stop();
-    this._streamlet.write(
-      this._resolver.call(this, message),
+    this.__config.streamlet.write(
+      this.__config.resolver.call(this, message),
     );
     return this;
   }
@@ -82,7 +94,7 @@ export class Typewriter<Message = any> {
    */
   public break(): this {
     this._spinner.stop();
-    this._streamlet.write(EOL);
+    this.__config.streamlet.write(EOL);
     return this;
   }
 
@@ -91,7 +103,7 @@ export class Typewriter<Message = any> {
    * already started.
    * @param message Arbitrary spinner label.
    */
-  public spin(message: Message): this {
+  public spin(message: string): this {
     this._spinner.start();
     this._spinner.write(message);
     return this;

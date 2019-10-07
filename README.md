@@ -131,37 +131,6 @@ const command = new Command({
 });
 ```
 
-We can customize the message format accepted by the print functions.
-
-```ts
-import { Command, Typewriter } from '@rawcmd/typewriters'; 
-
-interface Message { // custom message format
-  code: number;
-  message: string;
-}
-
-const command = new Command<Message>({
-  resolver() {
-    this.print({ // print custom message
-      code: 2000001,
-      message: 'Hello World!',
-    });
-  },
-}, {
-  typewriter: new Typewriter<Message>({ // set custom typewriter
-    resolver({ code, message }) => { // set custom message resolver for  `print` and `write` methods
-      return `[${code}] ${message}`;
-    },
-    spinner: {
-      resolver({ code, message }) => { // set custom message resolver for  `spin` method
-        return `[${this.getChar()}] ${code} ${message}`;
-      },
-    }
-  }),
-});
-```
-
 ### Handling errors
 
 Errors should be triggered directly within `resolver` and handled outside command class.
@@ -169,7 +138,7 @@ Errors should be triggered directly within `resolver` and handled outside comman
 ```ts
 import { RuntimeError } from '@rawcmd/core';
 
-const command = new Command<Message>({
+const command = new Command({
   resolver() {
     throw new RuntimeError(500001);
   },
@@ -192,7 +161,7 @@ TODO
 
 ### @rawcmd/core
 
-**Command<Message, Context>(recipe, config)**
+**Command<Context>(recipe, config)**
 
 > Command class for defining executable command.
 
@@ -203,14 +172,16 @@ TODO
 | recipe.options.$.name | String | Yes | - | Option name.
 | recipe.options.$.alias | String | No | - | Option alias.
 | recipe.options.$.description | String | No | - | Option description.
-| recipe.options.$.set | Function | No | - | Custom option setter. Check [Rawmodel](https://github.com/rawmodel/framework) for details.
-| recipe.options.$.get | Function | No | - | Custom option getter. Check [Rawmodel](https://github.com/rawmodel/framework) for details.
+| recipe.options.$.setter | Function | No | - | Custom option setter. Check [Rawmodel](https://github.com/rawmodel/framework) for details.
+| recipe.options.$.getter | Function | No | - | Custom option getter. Check [Rawmodel](https://github.com/rawmodel/framework) for details.
 | recipe.options.$.parser | Object | No | - | Option parser configuration. Check [Rawmodel](https://github.com/rawmodel/framework) for details.
 | recipe.options.$.defaultValue | String, Function | No | - | Option default value. Check [Rawmodel](https://github.com/rawmodel/framework) for details.
 | recipe.options.$.emptyValue | String, Function | No | - | Option empty value. Check [Rawmodel](https://github.com/rawmodel/framework) for details.
-| recipe.options.$.validate | ValidatorRecipe[] | No | - | List of option validators. Check [Rawmodel](https://github.com/rawmodel/framework) for details.
+| recipe.options.$.validators | ValidatorRecipe[] | No | - | List of option validators. Check [Rawmodel](https://github.com/rawmodel/framework) for details.
+| recipe.options.$.handlers | HandlerRecipe[] | No | - | List of option error handlers. Check [Rawmodel](https://github.com/rawmodel/framework) for details.
 | recipe.commands | Command[] | No | - | List of sub commands.
 | recipe.resolver | Function | No | - | Command resolver.
+| config.parent | Command | No | - | Parent command class instance.
 | config.context | Context | No | - | Arbitrary context data.
 | config.typewriter | Typewriter | No | - | Typewriter class instance.
 
@@ -222,9 +193,17 @@ TODO
 
 > Returns command description.
 
+**Command.prototype.getAncestors()**: Command[]
+
+> Returns a list of all parent command instances.
+
 **Command.prototype.getContext()**: Context
 
 > Returns custom context defined at initialization time.
+
+**Command.prototype.getParent()**: Command
+
+> Returns parent command instance.
 
 **Command.prototype.getTypewriter()**: Typewriter
 
@@ -244,7 +223,7 @@ TODO
 
 | Option | Type | Required | Default | Description
 |--------|------|----------|---------|------------
-| messages | Message[] | Yes | - | List of arbirary messages.
+| messages | string[] | Yes | - | List of arbirary messages.
 
 **Command.prototype.print(...messages)**: Command
 
@@ -252,7 +231,7 @@ TODO
 
 | Option | Type | Required | Default | Description
 |--------|------|----------|---------|------------
-| messages | Message[] | Yes | - | List of arbirary messages.
+| messages | string[] | Yes | - | List of arbirary messages.
 
 **Command.prototype.break()**: Command
 
@@ -264,54 +243,79 @@ TODO
 
 | Option | Type | Required | Default | Description
 |--------|------|----------|---------|------------
-| message | Message | Yes | - | Arbirary message.
+| message | string | Yes | - | Arbirary message.
+
+**EOL**: String
+
+> Holds a new-line character.
 
 ### @rawcmd/typewriters
 
-**tableTypewriter(config)**: Function(data)
-
-> Applyes styles to the provided string.
-
-| Option | Type | Required | Default | Description
-|--------|------|----------|---------|------------
-| config.reset | Boolean | No | - | Resets previous styles.
-| config.bold | Boolean | No | - | Makes text brighter.
-| config.dim | Boolean | No | - | Makes text darker.
-| config.underline | Boolean | No | - | Makes text underlined.
-| config.inverse | Boolean | No | - | Inverses font and background colors.
-| config.color | String | No | - | Applyes a color to text.
-| config.background | Boolean | No | - | Applyes a color to background.
-| config.align | String | No | - | Align paragraph text.
-| config.width | Integer | No | - | Sets paragraph width.
-| config.truncate | Integer | No | - | Truncate text at position.
-| data | String | No | - | Arbitrary text.
-
-**textTypewriter(config)**: Function(data)
+**rowTypewriter(columns, options)**: Function(data)
 
 > Converts data to stringified table.
 
 | Option | Type | Required | Default | Description
 |--------|------|----------|---------|------------
-| config.columns.$.index | Integer | Yes | - | Column index.
-| config.columns.$.reset | Boolean | No | - | Resets previous styles.
-| config.columns.$.bold | Boolean | No | - | Makes text brighter.
-| config.columns.$.dim | Boolean | No | - | Makes text darker.
-| config.columns.$.underline | Boolean | No | - | Makes text underlined.
-| config.columns.$.inverse | Boolean | No | - | Inverses font and background colors.
-| config.columns.$.color | String | No | - | Applyes a color to text.
-| config.columns.$.background | Boolean | No | - | Applyes a color to background.
-| config.columns.$.align | String | No | - | Align paragraph text.
-| config.columns.$.width | Integer | No | - | Sets paragraph width.
-| config.columns.$.truncate | Integer | No | - | Truncate text at position.
-| config.separator | String | No | - | Custom string between columns.
-| data | String[][] | No | - | Two-dimensional array of table data.
+| columns.$.index | Integer | Yes | - | Column index.
+| columns.$.width | Integer | No | - | Columns width.
+| columns.$.textAlign | String | No | left | Text alignment.
+| columns.$.textLength | Integer | No | - | Text truncation size.
+| columns.$.textWrap | Boolean | No | true | Wrapps long strings into multiple rows.
+| columns.$.truncate | Integer | No | - | Truncate text at position.
+| options.separatorSymbol | String | No | - | Custom string between columns.
+| options.truncationSymbol | String | No | - | Custom truncation simbol.
+| data | Any[][] | Yes | - | Two dimensional table of arbitrary data. Values are automatically converted to string.
+
+```ts
+import { rowTypewriter } from '@rawcmd/typewriters';
+
+const typewriter = rowTypewriter([
+  { index: 0, width: 20 },
+  { index: 1, width: 60 },
+], {
+  separatorSymbol: ' | ',
+});
+const text = typewriter([
+  'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+  'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+]);
+```
+
+**textTypewriter(options)**: Function(data)
+
+> Applyes styles to the provided string.
+
+| Option | Type | Required | Default | Description
+|--------|------|----------|---------|------------
+| options.reset | Boolean | No | - | Resets current styles.
+| options.bold | Boolean | No | - | Makes text brighter.
+| options.dim | Boolean | No | - | Makes text darker.
+| options.underline | Boolean | No | - | Makes text underlined.
+| options.inverse | Boolean | No | - | Inverses font and background colors.
+| options.color | String | No | - | Applyes a color to text.
+| options.background | Boolean | No | - | Applyes a color to background.
+| data | String | Yes | - | Arbitrary string.
+
+```ts
+import { TextAlign, TextColor, textTypewriter } from '@rawcmd/typewriters';
+
+const typewriter = textTypewriter({
+  align: TextAlign.RIGHT,
+  bold: true,
+  color: TextColor.MAGENTA
+});
+const text = typewriter('Hello World!');
+```
 
 ## Packages
 
 | Package | Description | Version
 |-|-|-
 | [@rawcmd/core](https://github.com/rawcmd/framework/tree/master/packages/rawcmd-core) | Core framework logic. | [![NPM Version](https://badge.fury.io/js/@rawcmd%2Fcore.svg)](https://badge.fury.io/js/%40rawcmd%2Fcore)
+| [@rawcmd/text](https://github.com/rawcmd/framework/tree/master/packages/rawcmd-text) | Text manipulation methods. | [![NPM Version](https://badge.fury.io/js/@rawcmd%2Ftext.svg)](https://badge.fury.io/js/%40rawcmd%2Fcore)
 | [@rawcmd/typewriters](https://github.com/rawcmd/framework/tree/master/packages/rawcmd-typewriters) | Collection of typewriters. | [![NPM Version](https://badge.fury.io/js/@rawcmd%2Ftypewriters.svg)](https://badge.fury.io/js/%40rawcmd%2Ftypewriters)
+| [@rawcmd/utils](https://github.com/rawcmd/framework/tree/master/packages/rawcmd-utils) | Helper functions. | [![NPM Version](https://badge.fury.io/js/@rawcmd%2Futils.svg)](https://badge.fury.io/js/%40rawcmd%2Futils)
 
 ## Contributing
 

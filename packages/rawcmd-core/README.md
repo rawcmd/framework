@@ -5,28 +5,26 @@
 ## Example
 
 ```ts
-const command = new Command<Context>({
+const command = new Command({
   name: '',
   alias: '',
   description: '',
-  args: [
-    {
-      name: '',
-      alias: '',
-      description: '',
-      parse: { array: true, resolver(value) {} },
-      validate: [
-        { code: 422, resolver(value) {} },
-      ],
-    },
+  summary: '',
+  options: [
+    new Option({
+      name,
+      alias,
+      description,
+      parser,
+      validators,
+    }),
   ],
   commands: [
-    new Command({ ... }),
-    new Command({ ... }),
+    new Command({}),
   ],
-  resolver({ context, logger }) { ... },
-}, {
-  context: { ... },
+  resolver(input) { ... },
 });
-command.perform(process.argv[2]);
+command.perform(
+  process.argv[2],
+);
 ```

@@ -1,3 +1,4 @@
+export { EOL } from 'os';
 export * from './types';
 export * from './errors/generic';
 export * from './errors/runtime';
@@ -6,4 +7,5 @@ export * from './streamlets/console';
 export * from './streamlets/memory';
 export * from './typewriters/spinner';
 export * from './typewriters/typewriter';
-export * from './command';
+export * from './models/option';
+export * from './models/command';

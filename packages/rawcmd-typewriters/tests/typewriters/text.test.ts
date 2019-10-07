@@ -1,85 +1,52 @@
 import { Spec } from '@hayspec/spec';
-import { EOL } from 'os';
-import { textTypewriter, TextColor, TextAlign } from '../../src';
+import { textTypewriter, TextBackground, TextColor } from '../../src';
 
 const spec = new Spec();
 
 spec.test('passes through', (ctx) => {
+  ctx.is(textTypewriter()(null), '');
+  ctx.is(textTypewriter()(undefined), '');
+  ctx.is(textTypewriter()(''), '');
   ctx.is(textTypewriter()('XXX'), 'XXX');
 });
 
 spec.test('supports bold text', (ctx) => {
-  ctx.is(textTypewriter({ bold: true })('XXX'), '\x1b[1mXXX\x1b[0m');
+  ctx.is(textTypewriter({ bold: true })('XXX'), '\u001b[1mXXX\u001b[22m');
+  ctx.is(textTypewriter({ bold: true })('.'), '\u001b[1m.\u001b[22m');
 });
 
 spec.test('supports text dimming', (ctx) => {
-  ctx.is(textTypewriter({ dim: true })('XXX'), '\x1b[2mXXX\x1b[0m');
+  ctx.is(textTypewriter({ dim: true })('XXX'), '\u001b[2mXXX\u001b[22m');
 });
 
 spec.test('supports underlined text', (ctx) => {
-  ctx.is(textTypewriter({ underline: true })('XXX'), '\x1b[4mXXX\x1b[0m');
+  ctx.is(textTypewriter({ underline: true })('XXX'), '\u001b[4mXXX\u001b[24m');
 });
 
 spec.test('supports text color inverse', (ctx) => {
-  ctx.is(textTypewriter({ inverse: true })('XXX'), '\x1b[7mXXX\x1b[0m');
+  ctx.is(textTypewriter({ inverse: true })('XXX'), '\u001b[7mXXX\u001b[27m');
 });
 
 spec.test('supports text color', (ctx) => {
-  ctx.is(textTypewriter({ color: TextColor.BLACK })('XXX'), '\x1b[30mXXX\x1b[0m');
-  ctx.is(textTypewriter({ color: TextColor.RED })('XXX'), '\x1b[31mXXX\x1b[0m');
-  ctx.is(textTypewriter({ color: TextColor.GREEN })('XXX'), '\x1b[32mXXX\x1b[0m');
-  ctx.is(textTypewriter({ color: TextColor.YELLOW })('XXX'), '\x1b[33mXXX\x1b[0m');
-  ctx.is(textTypewriter({ color: TextColor.BLUE })('XXX'), '\x1b[34mXXX\x1b[0m');
-  ctx.is(textTypewriter({ color: TextColor.MAGENTA })('XXX'), '\x1b[35mXXX\x1b[0m');
-  ctx.is(textTypewriter({ color: TextColor.CYAN })('XXX'), '\x1b[36mXXX\x1b[0m');
-  ctx.is(textTypewriter({ color: TextColor.WHITE })('XXX'), '\x1b[37mXXX\x1b[0m');
+  ctx.is(textTypewriter({ color: TextColor.BLACK })('XXX'), '\u001b[30mXXX\u001b[39m');
+  ctx.is(textTypewriter({ color: TextColor.RED })('XXX'), '\u001b[31mXXX\u001b[39m');
+  ctx.is(textTypewriter({ color: TextColor.GREEN })('XXX'), '\u001b[32mXXX\u001b[39m');
+  ctx.is(textTypewriter({ color: TextColor.YELLOW })('XXX'), '\u001b[33mXXX\u001b[39m');
+  ctx.is(textTypewriter({ color: TextColor.BLUE })('XXX'), '\u001b[34mXXX\u001b[39m');
+  ctx.is(textTypewriter({ color: TextColor.MAGENTA })('XXX'), '\u001b[35mXXX\u001b[39m');
+  ctx.is(textTypewriter({ color: TextColor.CYAN })('XXX'), '\u001b[36mXXX\u001b[39m');
+  ctx.is(textTypewriter({ color: TextColor.WHITE })('XXX'), '\u001b[37mXXX\u001b[39m');
 });
 
 spec.test('supports text background', (ctx) => {
-  ctx.is(textTypewriter({ background: TextColor.BLACK })('XXX'), '\x1b[40mXXX\x1b[0m');
-  ctx.is(textTypewriter({ background: TextColor.RED })('XXX'), '\x1b[41mXXX\x1b[0m');
-  ctx.is(textTypewriter({ background: TextColor.GREEN })('XXX'), '\x1b[42mXXX\x1b[0m');
-  ctx.is(textTypewriter({ background: TextColor.YELLOW })('XXX'), '\x1b[43mXXX\x1b[0m');
-  ctx.is(textTypewriter({ background: TextColor.BLUE })('XXX'), '\x1b[44mXXX\x1b[0m');
-  ctx.is(textTypewriter({ background: TextColor.MAGENTA })('XXX'), '\x1b[45mXXX\x1b[0m');
-  ctx.is(textTypewriter({ background: TextColor.CYAN })('XXX'), '\x1b[46mXXX\x1b[0m');
-  ctx.is(textTypewriter({ background: TextColor.WHITE })('XXX'), '\x1b[47mXXX\x1b[0m');
-});
-
-spec.test('supports paragraph width', (ctx) => {
-  const typewriter = textTypewriter({ width: 20 });
-  const text = typewriter('Lorem Ipsum is simply dummy text of the printing and typesetting industry.');
-  ctx.deepEqual(text, [
-    'Lorem Ipsum is      ',
-    'simply dummy text of',
-    'the printing and    ',
-    'typesetting         ',
-    'industry.           '
-  ].join(EOL));
-});
-
-spec.test('supports paragraph aligment', (ctx) => {
-  const typewriter0 = textTypewriter({ width: 20, align: TextAlign.RIGHT });
-  const typewriter1 = textTypewriter({ width: 20, align: TextAlign.CENTER });
-  const text0 = typewriter0('Lorem Ipsum is simply dummy text.');
-  const text1 = typewriter1('Lorem Ipsum is simply dummy text.');
-  ctx.deepEqual(text0, [
-    '      Lorem Ipsum is',
-    '  simply dummy text.',
-  ].join(EOL));
-  ctx.deepEqual(text1, [
-    '   Lorem Ipsum is   ',
-    ' simply dummy text. ',
-  ].join(EOL));
-});
-
-spec.test('supports paragraph truncation', (ctx) => {
-  const typewriter = textTypewriter({ width: 20, truncate: 30 });
-  const text = typewriter('Lorem Ipsum is simply dummy text of the printing and typesetting industry.');
-  ctx.deepEqual(text, [
-    'Lorem Ipsum is      ',
-    'simply dummy...     ',
-  ].join(EOL));
+  ctx.is(textTypewriter({ background: TextBackground.BLACK })('XXX'), '\u001b[40mXXX\u001b[49m');
+  ctx.is(textTypewriter({ background: TextBackground.RED })('XXX'), '\u001b[41mXXX\u001b[49m');
+  ctx.is(textTypewriter({ background: TextBackground.GREEN })('XXX'), '\u001b[42mXXX\u001b[49m');
+  ctx.is(textTypewriter({ background: TextBackground.YELLOW })('XXX'), '\u001b[43mXXX\u001b[49m');
+  ctx.is(textTypewriter({ background: TextBackground.BLUE })('XXX'), '\u001b[44mXXX\u001b[49m');
+  ctx.is(textTypewriter({ background: TextBackground.MAGENTA })('XXX'), '\u001b[45mXXX\u001b[49m');
+  ctx.is(textTypewriter({ background: TextBackground.CYAN })('XXX'), '\u001b[46mXXX\u001b[49m');
+  ctx.is(textTypewriter({ background: TextBackground.WHITE })('XXX'), '\u001b[47mXXX\u001b[49m');
 });
 
 export default spec;

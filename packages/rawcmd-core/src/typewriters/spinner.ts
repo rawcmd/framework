@@ -4,7 +4,7 @@ import { StreamletBase, TypewriterResolver } from '../types';
 /**
  * TTY spinner printer options interface.
  */
-export interface SpinnerConfig<Message> {
+export interface SpinnerConfig {
 
   /**
    * Animation character sequence.
@@ -14,7 +14,7 @@ export interface SpinnerConfig<Message> {
   /**
    * Message resolver function.
    */
-  resolver?: TypewriterResolver<Message>;
+  resolver?: TypewriterResolver;
 
   /**
    * Animation speed.
@@ -31,32 +31,17 @@ export interface SpinnerConfig<Message> {
 /**
  * TTY spinner printer for writing spinner animation messages to streamlets.
  */
-export class Spinner<Message = any> {
+export class Spinner {
 
   /**
-   * Animation character sequence.
+   * Spinner configuration.
    */
-  protected _chars: string[];
+  public readonly __config: SpinnerConfig;
 
   /**
    * Current animation message.
    */
-  protected _message: Message;
-
-  /**
-   * Message resolver function.
-   */
-  protected _resolver: TypewriterResolver<Message>;
-
-  /**
-   * Animation speed.
-   */
-  protected _speed: number;
-
-  /**
-   * Streamlet class instance.
-   */
-  protected _streamlet: StreamletBase;
+  protected _message: string;
 
   /**
    * Animation heartbeat timer.
@@ -67,15 +52,13 @@ export class Spinner<Message = any> {
    * Class constructor.
    * @param config TTY spinner printer options.
    */
-  public constructor(config?: SpinnerConfig<Message>) {
-    config = { ...config };
-
-    this._chars = config.chars || ['⠋', '⠙', '⠹', '⠸', '⠼', '⠴', '⠦', '⠧', '⠇', '⠏'];
-    this._speed = config.speed || 30;
-    this._streamlet = config.streamlet || new ConsoleStreamlet();
-
-    this._resolver = config.resolver || function(message) {
-      return `${[this.getChar(), message].filter((v) => !!v).join(' ')} `;
+  public constructor(config?: SpinnerConfig) {
+    this.__config = {
+      chars: ['⠋', '⠙', '⠹', '⠸', '⠼', '⠴', '⠦', '⠧', '⠇', '⠏'],
+      speed: 30,
+      streamlet: new ConsoleStreamlet(),
+      resolver: (message) => `${[this.getChar(), message].filter((v) => !!v).join(' ')} `,
+      ...config,
     };
   }
 
@@ -90,7 +73,17 @@ export class Spinner<Message = any> {
    * Returns the current animation character.
    */
   public getChar(): string {
-    return this._chars[0];
+    return this.__config.chars[0];
+  }
+
+  /**
+   * Returns TTY screen size as columns and rows.
+   */
+  public getSize(): [number, number] {
+    return [
+      this.__config.streamlet.width,
+      this.__config.streamlet.height,
+    ];
   }
 
   /**
@@ -108,7 +101,7 @@ export class Spinner<Message = any> {
    */
   public stop(): this {
     if (this._timer) {
-      this._streamlet.clearLine();
+      this.__config.streamlet.clearLine();
       clearTimeout(this._timer);
       this._timer = null;
     }
@@ -119,7 +112,7 @@ export class Spinner<Message = any> {
    * Updates animation label.
    * @param message Arbitrary message.
    */
-  public write(message: Message): boolean {
+  public write(message: string): boolean {
     if (!this.isStarted()) {
       return false;
     }
@@ -135,18 +128,18 @@ export class Spinner<Message = any> {
     if (!this._timer) {
       return;
     }
-    this._chars.push(this._chars.shift());
+    this.__config.chars.push(this.__config.chars.shift());
     this._render();
-    this._timer = setTimeout(this._tick.bind(this), this._speed);
+    this._timer = setTimeout(this._tick.bind(this), this.__config.speed);
   }
 
   /**
    * Repaints data of the last streamlet row.
    */
   protected _render(): void {
-    this._streamlet.clearLine();
-    this._streamlet.write(
-      this._resolver.call(this, this._message),
+    this.__config.streamlet.clearLine();
+    this.__config.streamlet.write(
+      this.__config.resolver.call(this, this._message),
     );
   }
 
