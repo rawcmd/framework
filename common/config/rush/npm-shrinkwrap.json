@@ -214,11 +214,12 @@
     },
     "@rush-temp/text": {
       "version": "file:projects/text.tgz",
-      "integrity": "sha512-k/hvha07j8Kw+TEh742xzjnX/5UqVIHjn+ufB0JT5XlubWl4vCG3+CSr96mhSn36EAMh8zCvSUrntIUwiJjvMA==",
+      "integrity": "sha512-AdmF16J0Ngb5ThlZU6Spq7OvGVc26O9KevXjq0U/JI5zK840OviamOVFYowzEKvhkT1hVVb8KWkxSTZtQ7V/TQ==",
       "requires": {
         "@hayspec/cli": "0.9.0",
         "@hayspec/spec": "0.9.0",
         "@slimio/wcwidth": "1.0.0",
+        "@types/node": "12.7.8",
         "nyc": "14.1.1",
         "ts-node": "8.3.0",
         "tslint": "5.18.0",
@@ -241,10 +242,11 @@
     },
     "@rush-temp/utils": {
       "version": "file:projects/utils.tgz",
-      "integrity": "sha512-4OX4r3u2vOlNlm0m4/NIo4RJx9dGj5qkzfL4FzSTIbtHmtJcatxU91XIpfTqzBdf+4BG/KgAMbLbiKlqQWB47A==",
+      "integrity": "sha512-qtn2031fUR81nwsbrz7l9rpRKsZE13qkpaU9LkNuTHHal/GuJnj9/CD5Vn04U4y469ff2YYG/aSO8vIvzp9YlA==",
       "requires": {
         "@hayspec/cli": "0.9.0",
         "@hayspec/spec": "0.9.0",
+        "@types/node": "12.7.8",
         "nyc": "14.1.1",
         "ts-node": "8.3.0",
         "tslint": "5.18.0",
