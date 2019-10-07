@@ -9,6 +9,7 @@ spec.test('exposed content', (ctx) => {
   ctx.true(!!exp.EOL);
   ctx.true(!!exp.ErrorCode);
   ctx.true(!!exp.GenericError);
+  ctx.true(!!exp.Link);
   ctx.true(!!exp.MemoryStreamlet);
   ctx.true(!!exp.Option);
   ctx.true(!!exp.RuntimeError);

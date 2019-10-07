@@ -1,5 +1,5 @@
+import { isString } from '@rawcmd/utils';
 import { ANSI_PATTERN } from '../constants';
-import { isString } from 'util';
 
 /**
  * Removes all ANSI characters from the provided `text`.

@@ -1,6 +1,5 @@
 import { Spec } from '@hayspec/spec';
-import { EOL, rowTypewriter } from '../../src';
-import { TextAlign } from '@rawcmd/text';
+import { EOL, rowTypewriter, TextAlign } from '../../src';
 
 const spec = new Spec<{
   data: any[][];

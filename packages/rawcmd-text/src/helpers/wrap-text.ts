@@ -1,7 +1,6 @@
-import { wcwidth } from '..';
-import { stripAnsi } from './strip-ansi';
-import { EOL } from '../constants';
 import { isString, isNumber, isInfinite } from '@rawcmd/utils';
+import { EOL } from '../constants';
+import { sizeText } from './size-text';
 
 /**
  * Splits the provided `text` into text lines.
@@ -22,14 +21,12 @@ export function wrapText(text: string, width: number) {
     let length = 0;
 
     line.split(/\s/g).forEach((word, index) => {
-      const str = stripAnsi(word);
-
-      if (length + wcwidth(str) >= width && words.length) {
+      if (length + sizeText(word) >= width && words.length) {
         result.push(words.join(' '));
         words = [];
         length = 0;
       }
-      length += wcwidth(str) + (index > 0 ? 1 : 0); // include spaces
+      length += sizeText(word) + (index > 0 ? 1 : 0); // include spaces
       words.push(word);
     });
 

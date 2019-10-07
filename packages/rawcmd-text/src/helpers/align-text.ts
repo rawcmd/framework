@@ -1,5 +1,6 @@
 import { isNumber, isInfinite, isString } from '@rawcmd/utils';
-import { wcwidth, TextAlign, stripAnsi } from '..';
+import { sizeText } from './size-text';
+import { TextAlign } from '../types';
 
 /**
  * Adds spaces to the provided `text` based on the provided text `width` and
@@ -14,7 +15,7 @@ export function alignText(text: string, width: number, align: TextAlign) {
     return text;
   }
 
-  const size = width - wcwidth(stripAnsi(text));
+  const size = width - sizeText(text);
 
   if (align === TextAlign.RIGHT) {
     return `${' '.repeat(size)}${text}`;

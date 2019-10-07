@@ -5,6 +5,7 @@ import { createModelClass } from '@rawmodel/core';
 import { CommandResolver, ErrorCode } from '../types';
 import { ValidationError } from '../errors/validation';
 import { RuntimeError } from '../errors/runtime';
+import { LinkData, Link } from './link';
 
 /**
  * Command data type.
@@ -44,6 +45,11 @@ export interface CommandRecipe<Context> {
    * List of sub commands.
    */
   commands?: CommandData<Context>[];
+
+  /**
+   * List of links.
+   */
+  links?: LinkData[];
 
   /**
    * Command resolver.
@@ -110,6 +116,11 @@ export class Command<Context = any> {
   public commands: Command<Context>[];
 
   /**
+   * Command links
+   */
+  public links: Link[];
+
+  /**
    * Command resolver.
    */
   public resolver: CommandResolver;
@@ -145,6 +156,10 @@ export class Command<Context = any> {
     this.commands = (recipe.commands || []).map((command) => {
       command = realize(command, this, [config]);
       return command instanceof Command ? command.clone() : new Command(command, config);
+    });
+    this.links = (recipe.links || []).map((link) => {
+      link = realize(link, this, [config]);
+      return link instanceof Link ? link.clone() : new Link(link);
     });
 
     this.resolver = recipe.resolver || (() => null);

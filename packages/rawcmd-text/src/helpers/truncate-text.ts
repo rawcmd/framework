@@ -1,8 +1,7 @@
-import { wcwidth } from '..';
-import { stripAnsi } from './strip-ansi';
+import { isString, isNumber, isInfinite, toString } from '@rawcmd/utils';
+import { sizeText } from './size-text';
 import { splitAnsi } from './split-ansi';
 import { hasAnsi } from './has-ansi';
-import { isString, isNumber, isInfinite, toString } from '@rawcmd/utils';
 
 /**
  * Shortens the provided `text` to required `size`, with a truncation `simbol`
@@ -16,7 +15,7 @@ export function trucateText(text: string, width: number, simbol?: string): strin
 
   if (!isString(text) || !isNumber(width) || isInfinite(width) || width < 0) {
     return text;
-  } else if (wcwidth(stripAnsi(text)) <= width) {
+  } else if (sizeText(text) <= width) {
     return text;
   }
 
@@ -28,13 +27,13 @@ export function trucateText(text: string, width: number, simbol?: string): strin
     return a.concat(b);
   }, []);
 
-  width = width - wcwidth(stripAnsi(simbol));
+  width = width - sizeText(simbol);
   width = width < 0 ? 0 : width;
 
   const line = [];
   let length = 0;
   for (const chunk of chunks) {
-    const w = wcwidth(stripAnsi(chunk));
+    const w = sizeText(chunk);
     if (length + w > width) {
       break;
     } else if (!hasAnsi(chunk)) {

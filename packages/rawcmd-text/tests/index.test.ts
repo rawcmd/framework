@@ -11,6 +11,7 @@ spec.test('exposed content', (ctx) => {
   ctx.true(!!exp.hasAnsi);
   ctx.true(!!exp.findAnsiPairs);
   ctx.true(!!exp.repairAnsi);
+  ctx.true(!!exp.sizeText);
   ctx.true(!!exp.splitAnsi);
   ctx.true(!!exp.stripAnsi);
   ctx.true(!!exp.trucateText);

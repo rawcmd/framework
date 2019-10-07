@@ -2,6 +2,36 @@
   "name": "@rawcmd/typewriters",
   "entries": [
     {
+      "version": "0.3.8",
+      "tag": "@rawcmd/typewriters_v0.3.8",
+      "date": "Mon, 07 Oct 2019 21:13:52 GMT",
+      "comments": {}
+    },
+    {
+      "version": "0.3.7",
+      "tag": "@rawcmd/typewriters_v0.3.7",
+      "date": "Mon, 07 Oct 2019 20:50:12 GMT",
+      "comments": {}
+    },
+    {
+      "version": "0.3.6",
+      "tag": "@rawcmd/typewriters_v0.3.6",
+      "date": "Mon, 07 Oct 2019 20:37:17 GMT",
+      "comments": {}
+    },
+    {
+      "version": "0.3.5",
+      "tag": "@rawcmd/typewriters_v0.3.5",
+      "date": "Mon, 07 Oct 2019 20:02:54 GMT",
+      "comments": {}
+    },
+    {
+      "version": "0.3.4",
+      "tag": "@rawcmd/typewriters_v0.3.4",
+      "date": "Mon, 07 Oct 2019 18:38:39 GMT",
+      "comments": {}
+    },
+    {
       "version": "0.3.3",
       "tag": "@rawcmd/typewriters_v0.3.3",
       "date": "Mon, 07 Oct 2019 16:48:11 GMT",

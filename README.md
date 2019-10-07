@@ -251,6 +251,58 @@ TODO
 
 ### @rawcmd/typewriters
 
+**commandsTypewriter(options)**: Function(command)
+
+> Returns a function which builds a string showing a list of all available sub commands with descriptions.
+
+| Option | Type | Required | Default | Description
+|--------|------|----------|---------|------------
+| options.title | String | No | - | Section title (defaults to `Commands`).
+| options.paddingWidth | Integer | No | - | Dotted padding size (defaults to `5`).
+| options.totalWidth | Integer | No | - | Allowed horizontal width (defaults to `80`).
+| command | Command | Yes | - | Command class instance.
+
+**contentsTypewriter(options)**: Function(data)
+
+> Returns a function which builds an arbitrary table of contents string with names and decriptions
+
+| Option | Type | Required | Default | Description
+|--------|------|----------|---------|------------
+| options.paddingWidth | Integer | No | - | Dotted padding size (defaults to `5`).
+| options.totalWidth | Integer | No | - | Allowed horizontal width (defaults to `80`).
+| data | String[][] | Yes | - | List of arrays with names and descriptions.
+
+**helpTypewriter(options)**: Function(data)
+
+> Returns a function which builds a string describing command abilities and other useful information.
+
+| Option | Type | Required | Default | Description
+|--------|------|----------|---------|------------
+| options.totalWidth | Integer | No | - | Allowed horizontal width (defaults to `80`).
+| command | Command | Yes | - | Command class instance.
+
+**linksTypewriter(options)**: Function(command)
+
+> Returns a function which builds a string representing a list of all usefull support references and links.
+
+| Option | Type | Required | Default | Description
+|--------|------|----------|---------|------------
+| options.title | String | No | - | Section title (defaults to `Links`).
+| options.paddingWidth | Integer | No | - | Dotted padding size (defaults to `5`).
+| options.totalWidth | Integer | No | - | Allowed horizontal width (defaults to `80`).
+| command | Command | Yes | - | Command class instance.
+
+**optionsTypewriter(options)**: Function(command)
+
+> Returns a function which builds a string representing a list of all available command options with descriptions.
+
+| Option | Type | Required | Default | Description
+|--------|------|----------|---------|------------
+| options.title | String | No | - | Section title (defaults to `Options`).
+| options.paddingWidth | Integer | No | - | Dotted padding size (defaults to `5`).
+| options.totalWidth | Integer | No | - | Allowed horizontal width (defaults to `80`).
+| command | Command | Yes | - | Command class instance.
+
 **rowTypewriter(columns, options)**: Function(data)
 
 > Converts data to stringified table.
@@ -282,6 +334,16 @@ const text = typewriter([
 ]);
 ```
 
+**summaryTypewriter(options)**: Function(command)
+
+> Returns a function which builds a string representing command summary text.
+
+| Option | Type | Required | Default | Description
+|--------|------|----------|---------|------------
+| options.title | String | No | - | Section title (defaults to `Summary`).
+| options.totalWidth | Integer | No | - | Allowed horizontal width (defaults to `80`).
+| command | Command | Yes | - | Command class instance.
+
 **textTypewriter(options)**: Function(data)
 
 > Applyes styles to the provided string.
@@ -307,6 +369,25 @@ const typewriter = textTypewriter({
 });
 const text = typewriter('Hello World!');
 ```
+
+**titleTypewriter**: Function(text)
+
+> Returns a function which builds a string representing section title.
+
+| Option | Type | Required | Default | Description
+|--------|------|----------|---------|------------
+| options.totalWidth | Integer | No | - | Allowed horizontal width (defaults to `80`).
+| text | String | Yes | - | Arbitrary text.
+
+**usageTypewriter**: Function(command)
+
+> Returns a function which builds a string showing how the command should be used with examples.
+
+| Option | Type | Required | Default | Description
+|--------|------|----------|---------|------------
+| options.title | String | No | - | Section title (defaults to `Usage`).
+| options.totalWidth | Integer | No | - | Allowed horizontal width (defaults to `80`).
+| command | Command | Yes | - | Command class instance.
 
 ## Packages
 

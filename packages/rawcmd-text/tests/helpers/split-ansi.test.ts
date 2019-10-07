@@ -4,8 +4,8 @@ import { splitAnsi } from '../../src';
 const spec = new Spec();
 
 spec.test('passes through on invalid parameters', (ctx) => {
-  ctx.deepEqual(splitAnsi(null), null);
-  ctx.deepEqual(splitAnsi(undefined), undefined);
+  ctx.deepEqual(splitAnsi(null), []);
+  ctx.deepEqual(splitAnsi(undefined), []);
 });
 
 spec.test('splits string on ANSI characters', (ctx) => {

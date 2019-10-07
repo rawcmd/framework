@@ -1,6 +1,31 @@
 # Change Log - @rawcmd/text
 
-This log was last generated on Mon, 07 Oct 2019 16:48:11 GMT and should not be manually modified.
+This log was last generated on Mon, 07 Oct 2019 21:13:52 GMT and should not be manually modified.
+
+## 0.3.8
+Mon, 07 Oct 2019 21:13:52 GMT
+
+*Version update only*
+
+## 0.3.7
+Mon, 07 Oct 2019 20:50:12 GMT
+
+*Version update only*
+
+## 0.3.6
+Mon, 07 Oct 2019 20:37:17 GMT
+
+*Version update only*
+
+## 0.3.5
+Mon, 07 Oct 2019 20:02:54 GMT
+
+*Version update only*
+
+## 0.3.4
+Mon, 07 Oct 2019 18:38:39 GMT
+
+*Version update only*
 
 ## 0.3.3
 Mon, 07 Oct 2019 16:48:11 GMT
