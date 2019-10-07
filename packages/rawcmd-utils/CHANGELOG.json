@@ -2,6 +2,18 @@
   "name": "@rawcmd/utils",
   "entries": [
     {
+      "version": "0.3.3",
+      "tag": "@rawcmd/utils_v0.3.3",
+      "date": "Mon, 07 Oct 2019 16:48:11 GMT",
+      "comments": {}
+    },
+    {
+      "version": "0.3.2",
+      "tag": "@rawcmd/utils_v0.3.2",
+      "date": "Mon, 07 Oct 2019 14:43:02 GMT",
+      "comments": {}
+    },
+    {
       "version": "0.3.1",
       "tag": "@rawcmd/utils_v0.3.1",
       "date": "Mon, 07 Oct 2019 07:00:15 GMT",

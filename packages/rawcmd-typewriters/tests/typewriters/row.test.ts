@@ -19,7 +19,6 @@ spec.test('builds string columns', (ctx) => {
     100,
   ]), [
     'John Loremšč Ipsćžum 100',
-    '',
   ].join(EOL));
 });
 
@@ -31,9 +30,9 @@ spec.test('supports column width', (ctx) => {
     'Loremšč Ipsćžum is simply',
     'This is \u001b[32ma long 火腿 string sam火ple',
   ]), [
-    'Loremšč    This is \u001b[32ma long 火腿\u001b[39m \n' +
-    'Ipsćžum    \u001b[32mstring sam火ple\u001b[39m     \n' +
-    'is simply                      \n',
+    'Loremšč    This is \u001b[32ma long 火腿\u001b[39m ',
+    'Ipsćžum    \u001b[32mstring sam火ple\u001b[39m     ',
+    'is simply                      ',
   ].join(EOL));
 });
 
@@ -47,10 +46,9 @@ spec.test('supports text truncation', (ctx) => {
     'This is \u001b[32ma long 火腿 string sam火ple',
     'Th火is is 腿 string foo',
   ]), [
-    'Loremšč    This is \u001b[32ma\u001b[39m  Th火is is ',
-    'I…         \u001b[32mlong\u001b[39m       腿 …      ',
+    'Loremšč I… This is \u001b[32ma\u001b[39m  Th火is is ',
+    '           \u001b[32mlong\u001b[39m       腿 …      ',
     '           \u001b[32m火腿…\u001b[39m                ',
-    '',
   ].join(EOL));
 });
 
@@ -66,7 +64,6 @@ spec.test('supports word wrapping', (ctx) => {
     '           \u001b[32mlong 火腿\u001b[39m   ',
     '           \u001b[32mstring\u001b[39m      ',
     '           \u001b[32msam火ple\u001b[39m    ',
-    '',
   ].join(EOL));
 });
 
@@ -75,16 +72,15 @@ spec.test('supports text alignment', (ctx) => {
     { index: 0, width: 15, textAlign: TextAlign.LEFT },
     { index: 1, width: 15, textAlign: TextAlign.CENTER },
     { index: 2, width: 15, textAlign: TextAlign.RIGHT },
-])([
+  ])([
     'Loremšč Ipsćžum is simply string sam火ple',
     'This is \u001b[32ma long 火腿 string sam火ple',
     'Th火is is 腿 string foo string sam火ple',
-]), [
-    'Loremšč          This is \u001b[32ma long\u001b[39m    Th火is is 腿',
-    'Ipsćžum is        \u001b[32m火腿 string\u001b[39m        string foo',
-    'simply string       \u001b[32msam火ple\u001b[39m             string',
+  ]), [
+    'Loremšč Ipsćžum  This is \u001b[32ma long\u001b[39m    Th火is is 腿',
+    'is simply         \u001b[32m火腿 string\u001b[39m        string foo',
+    'string              \u001b[32msam火ple\u001b[39m             string',
     'sam火ple                               sam火ple',
-    '',
   ].join(EOL));
 });
 
@@ -101,7 +97,6 @@ spec.test('supports custom column separator simbol', (ctx) => {
     'Loremšč   !This is \u001b[32ma long 火腿\u001b[39m ',
     'Ipsćžum   !\u001b[32mstring sam火ple\u001b[39m     ',
     'is simply !                    ',
-    '',
   ].join(EOL));
 });
 
@@ -116,7 +111,6 @@ spec.test('supports custom truncation simbol', (ctx) => {
     'This is \u001b[32ma long 火腿 string sam火ple',
   ]), [
     'Loremšč I! This is \u001b[32ma!\u001b[39m',
-    '',
   ].join(EOL));
 });
 

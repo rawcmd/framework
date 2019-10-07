@@ -93,6 +93,6 @@ export function rowTypewriter(columns?: ColumnRowTypewriterOptions[], options?: 
       return rows.join(options.separatorSymbol || '');
     });
 
-    return output.length ? output.join(EOL) + EOL : ''; // always return value
+    return output.length ? output.join(EOL) : ''; // always return value
   };
 }
