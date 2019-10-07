@@ -8,4 +8,5 @@ export * from './streamlets/memory';
 export * from './typewriters/spinner';
 export * from './typewriters/typewriter';
 export * from './models/option';
+export * from './models/link';
 export * from './models/command';

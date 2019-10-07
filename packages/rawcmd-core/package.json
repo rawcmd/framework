@@ -1,6 +1,6 @@
 {
   "name": "@rawcmd/core",
-  "version": "0.3.3",
+  "version": "0.3.4",
   "description": "Rawcmd core package.",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -68,8 +68,8 @@
     "typescript": "3.5.3"
   },
   "dependencies": {
-    "@rawcmd/text": "0.3.3",
-    "@rawcmd/utils": "0.3.3",
+    "@rawcmd/text": "0.3.4",
+    "@rawcmd/utils": "0.3.4",
     "@rawmodel/core": "3.3.0"
   }
 }

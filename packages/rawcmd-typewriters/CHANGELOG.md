@@ -1,6 +1,11 @@
 # Change Log - @rawcmd/typewriters
 
-This log was last generated on Mon, 07 Oct 2019 16:48:11 GMT and should not be manually modified.
+This log was last generated on Mon, 07 Oct 2019 18:38:39 GMT and should not be manually modified.
+
+## 0.3.4
+Mon, 07 Oct 2019 18:38:39 GMT
+
+*Version update only*
 
 ## 0.3.3
 Mon, 07 Oct 2019 16:48:11 GMT
