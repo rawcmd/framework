@@ -23,6 +23,7 @@ spec.test('splits string into multiple strings', (ctx) => {
     'spet',
     'se pove.',
   ]);
+  ctx.deepEqual(wrapText('invoke .....', 12), ['invoke .....']);
 });
 
 export default spec;

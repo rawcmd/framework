@@ -21,7 +21,7 @@ export function wrapText(text: string, width: number) {
     let words = [];
     let length = 0;
 
-    line.split(/\s/g).forEach((word) => {
+    line.split(/\s/g).forEach((word, index) => {
       const str = stripAnsi(word);
 
       if (length + wcwidth(str) >= width && words.length) {
@@ -29,7 +29,7 @@ export function wrapText(text: string, width: number) {
         words = [];
         length = 0;
       }
-      length += wcwidth(str) + 1;
+      length += wcwidth(str) + (index > 0 ? 1 : 0); // include spaces
       words.push(word);
     });
 
