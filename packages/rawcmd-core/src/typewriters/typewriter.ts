@@ -1,4 +1,5 @@
-import { EOL } from 'os';
+import { EOL } from '@rawcmd/text';
+import { toString } from '@rawcmd/utils';
 import { Spinner, SpinnerConfig } from './spinner';
 import { ConsoleStreamlet } from '../streamlets/console';
 import { StreamletBase, TypewriterResolver } from '../types';
@@ -47,7 +48,7 @@ export class Typewriter<Message = any> {
   public constructor(config?: TypewriterConfig) {
     this.__config = {
       streamlet: new ConsoleStreamlet(),
-      resolver: (message) => message.toString(),
+      resolver: (message) => toString(message) || '',
       spinner: {},
       ...config,
     };

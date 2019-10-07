@@ -1,4 +1,5 @@
-import { EOL } from 'os';
+import { EOL } from '@rawcmd/text';
+import { toString } from '@rawcmd/utils';
 import { StreamletBase } from '../types';
 
 /**
@@ -51,7 +52,7 @@ export class MemoryStreamlet implements StreamletBase {
    * @param chunk Arbitrary message.
    */
   public write(chunk: string): boolean {
-    this._buffer += (chunk || '').toString().replace(/\r\n|\n/g, EOL);
+    this._buffer += (toString(chunk) || '').replace(/\r\n|\n/g, EOL);
     return true;
   }
 

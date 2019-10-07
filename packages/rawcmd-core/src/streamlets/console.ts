@@ -1,4 +1,5 @@
-import { EOL } from 'os';
+import { EOL } from '@rawcmd/text';
+import { toString } from '@rawcmd/utils';
 import { StreamletBase } from '../types';
 
 /**
@@ -26,7 +27,7 @@ export class ConsoleStreamlet implements StreamletBase {
    */
   public write(chunk: string): boolean {
     return process.stdout.write(
-      (chunk || '').toString().replace(/\r\n|\n/g, EOL),
+      (toString(chunk) || '').replace(/\r\n|\n/g, EOL),
     );
   }
 

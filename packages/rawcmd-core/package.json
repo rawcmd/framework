@@ -68,6 +68,7 @@
     "typescript": "3.5.3"
   },
   "dependencies": {
+    "@rawcmd/text": "0.3.0",
     "@rawcmd/utils": "0.3.0",
     "@rawmodel/core": "3.3.0"
   }
